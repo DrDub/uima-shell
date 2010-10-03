@@ -1,0 +1,216 @@
+IMPLEMENTATION
+
+	  * http://java.sun.com/javase/6/docs/api/java/lang/Runtime.html
+  	  * http://ydisanto.developpez.com/tutoriels/j2se/runtime/
+      * http://blog.developpez.com/adiguba/p3035/java/5-0-tiger/runtime-exec-n-est-pas-des-plus-simple/
+
+	Algorithme
+		INPUT_VIEW = DEFAULT_VALUE (i.e. _InitialView)
+		
+		log de toutes les actions
+		1)SI INPUT_TYPE=annotation et OUTPUT_TYPE=annotation 
+				// Sous entendu qu'une vue par défaut soit définie (e.g. _InitialView) 
+				// et que OUTPUT_VIEW := INPUT_VIEW 
+				// e.g. INPUT_VIEW="" OUTPUT_VIEW="" 
+				// 		INPUT_ANNOTATION=Paragraph 	OUTPUT_ANNOTATION=AnnotationOverParagraph
+				ALORS
+					// POUR CHAQUE CONTEXT_ANNOTATION FAIRE POUR CHAQUE INPUT_ANNOTATION DE CONTEXT_ANNOTATION
+					POUR CHAQUE INPUT_ANNOTATION DE INPUT_VIEW
+					FAIRE
+						exec 
+						creation OUTPUT_ANNOTATION sur offset de INPUT_ANNOTATION	
+			
+		2)SINON SI INPUT_TYPE=vue et OUTPUT_TYPE=annotation
+				// Sous entendu que l'OUTPUT_VIEW := INPUT_VIEW 
+				// annotation : type d'annotation
+				// e.g. INPUT_VIEW=_InitialView OUTPUT_VIEW="" 
+				// 		INPUT_ANNOTATION="" 	OUTPUT_ANNOTATION=AnnotationOverView
+				ALORS
+				// créer une annotation sur l'offset de la vue	
+		
+		3)SINON Si INPUT_TYPE=vue et OUTPUT_TYPE=vue 
+		// On execute la commande sur le contenu d'une vue 
+		// et on stocke le résultat dans le contenu d'une autre vue
+		ALORS	SI INPUT_VIEW existe
+				ALORS	SI OUTPUT_VIEW n'existe pas 
+						ALORS	// e.g. INPUT_VIEW=_InitialView OUTPUT_VIEW=ResultView 
+								// 		INPUT_ANNOTATION="" 	OUTPUT_ANNOTATION=""
+								créer OUTPUT_VIEW
+								exec in:INPUT_VIEW.text out:OUTPUT_VIEW.text
+						SINON 	SI OUTPUT_VIEW existe
+PB								ALORS 	// forcer l'écrasement ?
+								// ne rien faire sauf log ?
+				SINON 	SI INPUT_VIEW n'existe pas
+PB						ALORS	// ne rien faire sauf log ?	 
+				
+		4)SINON SI INPUT_TYPE=annotation et OUTPUT_TYPE=vue 
+				// e.g. INPUT_VIEW="" OUTPUT_VIEW=ResultView 
+				// 		INPUT_ANNOTATION=Paragraph 	OUTPUT_ANNOTATION=""
+PB				ALORS	// ne rien faire sauf log ?	
+						// proposition : concatener les résultats obtenus pour chaque annotation dans l'output_view 
+	
+	note : INPUT_ANNOTATION a le sens de CONTEXT_ANNOTATION ? Si oui alors 
+
+Que se passe t il pour les cas suivants 
+1)INPUT_TYPE=vue et OUTPUT_TYPE= 
+// OUTPUT_VIEW sera égal à INPUT_VIEW;
+// ERROR Forcer l'écrasement ? 
+2)INPUT_TYPE=annotation et OUTPUT_TYPE=
+// OUTPUT_VIEW sera égal à INPUT_VIEW;
+// ERROR Forcer l'écrasement ? en concatenant ?
+3) INPUT_TYPE= et OUTPUT_TYPE=vue 
+// INPUT_VIEW=_InitialView et OUTPUT_VIEW soit égal soit différent
+// si égal alors ERROR // Forcer l'écrasement ? en concatenant ?
+// si différent alors on la crée 
+4) INPUT_TYPE= et OUTPUT_TYPE=annotation
+// INPUT_VIEW=_InitialView et OUTPUT_VIEW est égal
+// on crée une annotation sur l'offset de DocumentAnnotation (devant correspondre à _InitialView)
+5) INPUT_TYPE= et OUTPUT_TYPE=
+// INPUT_VIEW=_InitialView et OUTPUT_VIEW est égal
+// ERROR Forcer l'écrasement ? 
+6) INPUT_TYPE=View et OUTPUT_VIEW=newView OUTPUT_A=newA
+// ERROR sur quelles offsets créer les newA ?
+7) INPUT_TYPE=Annotation et OUTPUT_VIEW=newView OUTPUT_A=newA
+// ERROR sur quelles offsets créer les newA ?
+
+INITIALIZE
+
+// Variables init
+
+INPUT_VIEW = DEFAULT_VALUE (i.e. _InitialView)
+OUTPUT_VIEW = INPUT_VIEW
+CONTEXT_A = DEFAULT_CONTEXT_ANNOTATION (i.e. DocumentAnnotation)
+//INPUT_A = DEFAULT_CONTEXT_ANNOTATION (i.e. DocumentAnnotation)
+// OUTPUT_A = DEFAULT_AE_RESULT_ANNOTATION
+OUTPUT_ANNOTATION = ""
+// !!! Mettre seulement des defaults pour input/output view ; il peut y avoir un type result AE mais qui ne sera pas utiliser par défaut
+// il faut voir comment le output type est choisi (création d'annotation résultat ou de vue résultat)
+// pas strict i.e. ne lance pas d'erreur si input_v, context_A, input_A n'existe pas de même si output_v existe ; ne réalise tout simplement aucun traitement
+
+// Vérification des préconditions
+
+// Deux input possibles : 
+// soit en tant que Vue 		i.e. INPUT_V != "" et EXIST (INPUT_V) et INPUT_A == "" 															i.e. PARAM_INPUT_V any (car default) et PARAM_INPUT_A == ""
+// soit en tant qu'Annotation 	i.e. INPUT_V != "" et EXIST (INPUT_V) et INPUT_A != "" (Its presence within the index is not a strong constraint ) i.e. PARAM_INPUT_V any (car default) et PARAM_INPUT_A != "" 
+// Input exclusif ce qui diffère c'est la val de PARAM_INPUT_A 
+
+// Deux output possibles : 
+// soit en tant que Vue 		i.e. OUTPUT_A == "" et NOT EXIST (OUTPUT_V)	i.e. PARAM_OUTPUT_V != "" et NOT EXIST VIEW(PARAM_OUTPUT_V) ; crée la vue
+// soit en tant qu'Annotation 	i.e. OUTPUT_A != "" et EXIST (OUTPUT_V) et OUTPUT_V==INPUT_V	i.e. PARAM_OUTPUT_A != "" et si PARAM_OUTPUT_V != "" et EXIST VIEW(PARAM_OUTPUT_V) et  OUTPUT_V==INPUT_V
+// Output exclusif et dans tous les autres cas une ERROR
+
+// in: vue ; out: vue
+INPUT_A == "" && OUTPUT_A == "" && OUTPUT_V && NOT EXIST (OUTPUT_V)	// createView(OUTPUT_V) et le res d'excution dans la vue
+// in: vue ; out: annotation
+INPUT_A == "" && OUTPUT_A != "" && OUTPUT_V & EXIST (OUTPUT_V)		// getView(OUTPUT_V) ;  ou bien n'autoriser ce cas que si output_v == input_v
+// in: annotation ; out: annotation
+INPUT_A != "" && OUTPUT_A != "" && OUTPUT_V & EXIST (OUTPUT_V)		// getView(OUTPUT_V) ;  ou bien n'autoriser ce cas que si output_v == input_v
+// in: annotation ; out: vue
+INPUT_A != "" && OUTPUT_A == "" &&  OUTPUT_V && NOT EXIST (OUTPUT_V)	// createView(OUTPUT_V) et concat tous res d'exécution sur la vue
+
+
+SI PARAM_INPUT_V != "" 
+ALORS 	
+	INPUT_V = PARAM_INPUT_V
+	
+SI PARAM_OUTPUT_V != "" 
+ALORS 	
+	OUTPUT_V = PARAM_OUTPUT_V
+
+SI NOT EXIST (VIEW(INPUT_V)) 
+ALORS
+	ERROR matière première requise
+		
+// Pré-conditions vérifiés
+Si INPUT_T=vue et OUTPUT_T=vue 	ALORS créer OUTPUT_VIEW ; exec in:INPUT_V.text out:OUTPUT_V.text
+Si INPUT_T=vue et OUTPUT_T=annotation ALORS 
+Si INPUT_T=annotation et OUTPUT_T=vue ALORS 
+Si INPUT_T=annotation et OUTPUT_T=annotation ALORS
+
+
+PROCESS
+
+SI Exist Input View 
+ALORS
+
+SI INPUT_A != "" 
+ALORS 
+	RECUPERE INDEX CONTEXT_A (i.e. DocumentAnnotation or any existing or not) DE INPUT_VIEW (i.e. _InitialView or any existing) 
+	//SI VIDE(INDEX CONTEXT_A) 
+	//ALORS 
+	//	ERROR WEAK CONTEXT_A not present
+	POUR CHAQUE CONTEXT_A DE INPUT_VIEW 
+	FAIRE 	
+		RECUPERE INDEX INPUT_A DE CONTEXT_A
+		//SI VIDE(INDEX INPUT_A) 
+		//ALORS 
+		//	ERROR WEAK INPUT_A not present
+		POUR CHAQUE INPUT_A (i.e. any existing (or not)) DE CONTEXT_A 
+		FAIRE 
+			RESULT = exec CMD INPUT_A.text 
+			// Création 
+			SI OUTPUT_A != ""
+			// OUTPUT en tant qu'Annotation
+			ALORS
+				creation de OUTPUT_A sur OFFSET (INPUT_A) et set VALUE avec RESULT
+			SINON 
+				RESULT .= "\n".RESULT ;// concatenation du résultat du traitement sur l'exécution à la suite du texte à setter dans la vue qui est supposée avoir été créée
+	SI OUTPUT_A == "" 
+	ALORS
+		SI OUTPUT_V != INPUT_V 
+		ALORS
+			create OUTPUT_V (il faut vérifier si existe déjà ; exception si existe déjà ? Si oui on n'a pas besoin de vérifier que différent de INPUT_V)
+			setView OUTPUT_V avec RESULT
+		SINON
+			Error OUTPUT_V already existing
+SINON
+// l'input est une vue qui existe
+	RESULT= exec CMD INPUT_V.text
+	SI OUTPUT_A != ""
+	// OUTPUT en tant qu'Annotation
+	ALORS
+			creation de OUTPUT_A sur OFFSET (INPUT_V) et set VALUE avec RESULT
+	SINON
+		SI OUTPUT_V != INPUT_V 
+		ALORS
+			create OUTPUT_V (il faut vérifier si existe déjà ; exception si existe déjà ? Si oui on n'a pas besoin de vérifier que différent de INPUT_V)
+			setView OUTPUT_V avec RESULT
+		SINON
+			Error OUTPUT_V already existing
+	
+Merde OUTPUT_A doit être réservé avec une feature value de type String ! On crée le param feature ca illustrera cet aspect générique et à terme on utilisera feature path					
+			
+			
+// If no output view is specified, we set it to inputViewString
+Mais comment distinguer si on veut une annotation ou une output view ; toujours avec output_a défini ou pas			
+					
+					
+
+
+// Seront écrasés suivant si les val des param correspondants ne sont pas nulles
+INPUT_VIEW=="" OUTPUT_VIEW=="" CONTEXT_A=="" INPUT_A=="" OUTPUT_A==""
+// <=> INPUT_VIEW=="_InitialView" OUTPUT_VIEW=="_InitialView" CONTEXT_A=="DocumentAnnotation" INPUT_A=="" OUTPUT_A=="DEFAULT_AE_RESULT_ANNOTATION"
+
+
+ERROR CASE EXPLANATION
+
+	INPUT_VIEW=""  INPUT_A="" OUTPUT_VIEW=""  OUTPUT_A=""
+	<=> INPUT_VIEW="_InitialView"  INPUT_A="" OUTPUT_VIEW=INPUT_VIEW  OUTPUT_A=""
+	<=> INPUT_VIEW="AnyThing"  INPUT_A="" OUTPUT_VIEW=INPUT_VIEW  OUTPUT_A=""
+	INPUT_VIEW est tenue d'exister dans tous les cas.
+	FAIL Conduira à une erreur car le type de sortie attendu est View (pas d'OUTPUT_A défini) 
+	or l'OUTPUT_VIEW existant déjà ne pourra pas être créé.
+	
+	INPUT_VIEW=""  INPUT_A="" OUTPUT_VIEW=""  OUTPUT_A="fr.univnantes.lina.uima.shell.types.ShellAnnotation"
+	<=> INPUT_VIEW="_InitialView"  INPUT_A="" OUTPUT_VIEW=INPUT_VIEW  OUTPUT_A="fr.univnantes.lina.uima.shell.types.ShellAnnotation"
+	<=> INPUT_VIEW="AnyThing"  INPUT_A="" OUTPUT_VIEW=INPUT_VIEW  OUTPUT_A="fr.univnantes.lina.uima.shell.types.ShellAnnotation"
+	INPUT_VIEW est tenue d'exister.
+	OK
+	
+	INPUT_VIEW=""  INPUT_A="" OUTPUT_VIEW="AnyOtherThing"  OUTPUT_A="fr.univnantes.lina.uima.shell.types.ShellAnnotation"
+	<=> INPUT_VIEW="_InitialView"  INPUT_A="" OUTPUT_VIEW="AnyOtherThing"  OUTPUT_A="fr.univnantes.lina.uima.shell.types.ShellAnnotation"
+	<=> INPUT_VIEW="AnyThing"  INPUT_A="" OUTPUT_VIEW="AnyOtherThing"  OUTPUT_A="fr.univnantes.lina.uima.shell.types.ShellAnnotation"
+	INPUT_VIEW est tenue d'exister.
+	FAIL si OUTPUT_VIEW n'existe pas 
+	
+	org.apache.uima.SentenceAnnotation
