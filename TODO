@@ -1,0 +1,41 @@
+# UIMA Shell
+# Copyright (C) 2010  Nicolas Hernandez
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.  
+#
+# Fichier TODO
+# 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
+
+	* how to use dans le readme (operational instructions)
+	* rendre paramétrable un InputFeature (pas nécessairement coveredText)
+	* factoriser si possible la gestion de la création des view/annotation pour l'input view et l'input annotation
+	* gérer les in out et err stream de la méthode command de la classe Shell
+	* revoir les signatures des méthodes (notamment process) pour gérer les paramètres globaux/locaux
+	* modifier le code pour setter les feature runID et componentId
+	* rendre plus générique la méthode createAnnotation pour permettre avec en argument un map nom des features et valeurs des features
+	* gestion des couples nom annotation, nom feature avec feature path	notamment changer le couple PARAM_OUTPUT_ANNOTATION, PARAM_OUTPUT_FEATURE avec FEATUREPATH
+	* gestion des logs à la uima
+	* rajouter du code test e.g. http://code.google.com/p/uutuc/
+	* permettre la conversion d'encodage de l'input vers ce qui est passé en entrée du process et de la sortie du process vers ce qui est à sauvegarder 
+	* refactorer la gestion de la configuration du shell
+	* un script pour faciliter la construction si en dehors d'Eclipse ?
+	* une liste de discussion associée à la forge
+	
+
+
+	

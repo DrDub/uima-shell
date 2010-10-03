@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="uima-shell-ae/target/uima-shell-v101001.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/uima-shell-ae/packaging-uima-shell.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <file path="/uima-shell-ae/LICENSE"/>
+        <file path="/uima-shell-ae/packaging-uima-shell-ae.jardesc"/>
+        <folder path="/uima-shell-ae/lib"/>
+        <file path="/uima-shell-ae/TODO"/>
+        <file path="/uima-shell-ae/ChangeLog"/>
+        <folder path="/uima-shell-ae/conf"/>
+        <folder path="/uima-shell-ae/data"/>
+        <javaElement handleIdentifier="=uima-shell-ae/src"/>
+        <file path="/uima-shell-ae/.project"/>
+        <javaElement handleIdentifier="=uima-shell-ae/desc"/>
+        <file path="/uima-shell-ae/README"/>
+        <folder path="/uima-shell-ae/resources"/>
+        <folder path="/uima-shell-ae/metadata"/>
+        <file path="/uima-shell-ae/KNOWN_BUGS"/>
+        <file path="/uima-shell-ae/.classpath"/>
+    </selectedElements>
+</jardesc>
