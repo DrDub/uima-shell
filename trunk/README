@@ -40,7 +40,9 @@ FEATURES
 	depuis Java. 
 	http://blog.developpez.com/adiguba/p3035/java/5-0-tiger/runtime-exec-n-est-pas-des-plus-simple/
 	* gestion de multiples formats des commandes à encapsuler  
-	* traitement de la command SHELL sous forme d'un thread 
+	* traitement de la command SHELL sous forme d'un thread
+	* paramétrage générique des input/output view/annotation/feature à l'aide de l'API java.lang.reflect 
+	(constitue des exemples de code générique) 
 	
 	
 DESCRIPTION
@@ -54,10 +56,12 @@ DESCRIPTION
     comme annotation sur une vue donnée supposée exister ou bien comme le 
     sofaDataString d'une vue à créer.  
     
-    The specified CAS element to analyze will be turn into a file argument and
-    to consider it via its file name reference as the central point of the 
-    command line to execute. Each command and/or argument can be seen as a 
-    token in order to make easier the reading. 
+    In practice, to allow any command format, the specified CAS element to analyze 
+    is saved in a text file. Two parameters (PreCommandTokens and PostCommandTokens) 
+    are used to specify the pre/post elements of the command to run. The text 
+    file is seen as the central point of the command line to execute. Each 
+    command and/or argument can be seen as a token in order to make easier the reading. 
+
     
     Afin de réaliser tout traitement. 
     L'INPUT_VIEW doit déjà exister ; par défaut elle est initialisée à 
