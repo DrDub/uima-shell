@@ -28,9 +28,9 @@ OVERVIEW
 	l'exécution d'une commande shell sur un élément du CAS (Common Analysis 
 	Structure) et l'enrichissement du CAS avec le résultat du traitement. 
 	L'entrée de la commande peut être soit le SofaDataString d'une vue 
-	spécifiée, soit le texte couvert par un type d'annotation (lesquelles 
-	elles-même apparaîssent optionnellement dans certains contextes marqués par 
-	un autre type annotation). La sortie peut être produite soit sous la forme 
+	spécifiée, soit la valeur d'une feature String spécifiée d'annotations d'un type spécifié  
+	(elles-même pouvant apparaître optionnellement dans certains contextes marqués par 
+	un autre type annotation spécifié). La sortie peut être produite soit sous la forme 
 	d'un SofaDataString d'une nouvelle vue créée pour l'occasion ou bien comme 
 	valeur d'une feature de type String d'une annotation spécifiée elle aussi 
 	créée pour l'occasion.
@@ -39,8 +39,8 @@ OVERVIEW
 FEATURES
 
 	* implémentation d'un ae réalisant une commande SHELL sur un élément input
-	 du CAS (vue|annotation) et produisant un nouvel élément output 
-	 (vue|annotation) au sein du CAS
+	 du CAS (vue|annotation/feature) et produisant un nouvel élément output 
+	 (vue|annotation/feature) au sein du CAS
 	* traitement utilisant l'API SHELL de F Martini (alias adiGuba) distribuée 
 	sous licence CeCILL-C et qui permet de simplifier l'exécution de programme 
 	et de ligne de commande depuis Java. 
@@ -51,7 +51,7 @@ FEATURES
 	redirigé...   
 	* traitement de la command SHELL sous forme d'un thread
 	* paramétrage libre et générique des éléments du CAS 
-	(view/annotation/feature) d'entrée (à traiter) et de sortie (à créer) 
+	(view et annotation/feature) d'entrée (à traiter) et de sortie (à créer) 
 	notamment à l'aide de l'API java.lang.reflect (constitue des exemples de 
 	code générique)
 	
@@ -64,12 +64,12 @@ DESCRIPTION
 	son nom passé en argument et produisent leur résultat sur la sortie standard.
 	
 	Quatre configurations de traitement sont possibles suivant le type d'entrée
-    (input), vue ou annotation, et le type de sortie (output), vue ou annotation.
+    (input), vue ou annotation/feature, et le type de sortie (output), vue ou annotation/feature.
     On peut faire réaliser un traitement soit sur le sofaDataString d'une vue 
-    existante soit sur des annotations d'un certains types éventuellement présentes au 
+    existante soit sur une feature String d'annotations d'un certain type éventuellement présentes au 
     sein de certains contextes marqués par des annotations (elles même appartenant 
     à une vue existante). Le résultat du traitement peut être enregistré dans 
-    comme annotation sur une vue donnée supposée exister ou bien comme le 
+    comme valeur d'une feature d'une annotation sur une vue donnée supposée exister ou bien comme le 
     sofaDataString d'une vue à créer.  
     
     In practice, to allow any command format, the specified CAS element to analyze 
@@ -124,16 +124,19 @@ INSTALLATION INSTRUCTIONS
 
 OPERATING INSTRUCTIONS
     
- 	* Editez le descripteur, et configurez les paramètres souhaités sous 
- 	l'onglet parameter_settings 
- 	* A minima d'abord spécifier les éléments du CAS que vous souhaitez traiter 
- 	(l'InputView, le ContextAnnotation, l'InputAnnotation) puis le type 
- 	d'éléments du CAS que vous voulez produire (l'OutputView et 
- 	l'OutputAnnotation/Feature).
- 	* Ensuite spécifier la commande à exécuter à l'aide des paramètres 
- 	PreCommandTokens et PostCommandTokens. Le premier est obligatoire et le 
- 	second est optionnel.
- 	
+ 	* Editez le descripteur, 
+ 	* Sous l'onglet "Aggregate" ajouter "by name" le descripteur ShellAE (ainsi 
+ 	que les descripteurs des AE que vous souhaitez exécuter pour lesquels vous 
+ 	aurez ajouté les jars correspondants dans le build path)
+ 	* Sous l'onglet "Parameters" section "Delegate Component Parameters" pour 
+ 	le composant ShellAE faites des "create NON SHARED overide" des parameters qui vous intéressent 
+ 	A minima sélectionnez les éléments du CAS que vous souhaitez traiter 
+ 	(l'InputView, le ContextAnnotation, l'InputAnnotation/Feature) 
+ 	puis le type d'éléments du CAS que vous voulez produire (l'OutputView, 
+ 	l'OutputAnnotation/Feature) et enfin les paramètres de la commande  
+ 	PreCommandTokens et PostCommandTokens. 
+ 	* Sous l'onglet "Parameter Settings", spécifier ces valeurs 
+ 	* Sous l'onglet "Capabilities" spécifier les types à afficher 	
 		
 PARAMETERS		
 		
@@ -154,9 +157,13 @@ PARAMETERS
 			annotation will be used to get the input annotations.
 			
 		InputAnnotation
-			Optional. Leave it free if you want to process the sofaDataString 
-			of the view (the whole view). Otherwise the command will be processed 
-			with each annotation of the specified type as input.
+		InputFeature
+			Optional. InputAnnotation and InputFeature must be set both. Leave 
+			them free if you want to process the sofaDataString	of the view 
+			(the whole view). Otherwise the command will be processed with each
+			InputFeature of the annotations of the specified InputAnnotation 
+			type as input. Most of the time you will use coveredText as the 
+			InputFeature value.
 			
 		OutputView
 			Optional, with an internal default value set to the InputView 
@@ -246,15 +253,20 @@ EXAMPLES
 		
 	example-inputAnnotation-outputView_AAE.xml
 		Assume the Apache WhitespaceTokenizer have run. Uppercase any content 
-		of each org.apache.uima.SentenceAnnotation. And output it in a new view.
+		of the coveredText of each org.apache.uima.SentenceAnnotation. And 
+		output it in a new view.
 		
 	example-inputAnnotation-outputAnnotation_AAE.xml
-		Over each org.apache.uima.SentenceAnnotation add a 
+		Over each coveredText of org.apache.uima.SentenceAnnotation add a 
 		fr.univnantes.lina.uima.shell.types.ShellAnnotation with the number of 
-		words per sentence. Use variables
+		words per sentence in the value feature. Use variables.
 	
 	example-treetagger-via-Shell_AAE.xml
-		use variables in command definition, perl and TreeTagger external command
+		use variables in command definition, perl and TreeTagger external command.
+		
+	example-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml
+		show how to pipe several calls to the shell AE starting from an input view, 
+		creating an annotation, then working on the annotation to create a view.
 
 
 TRICKS

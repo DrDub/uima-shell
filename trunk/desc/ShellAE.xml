@@ -41,9 +41,20 @@ Execute any Shell command by taking any view or annotation as input and by creat
       </configurationParameter>
       <configurationParameter>
         <name>InputAnnotation</name>
-        <description>Optional. Leave it free if you want to process the sofaDataString 
+        <description>Optional. InputAnnotation and InputFeature must be set both. Leave them free if you want to process the sofaDataString 
 			of the view (the whole view). Otherwise the command will be processed 
-			with each annotation of the specified type as input.</description>
+			with each InputFeature of the annotations of the specified InputAnnotation type as input. Most of the time you will use coveredText as the 
+			InputFeature value.</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>InputFeature</name>
+        <description>Optional. InputAnnotation and InputFeature must be set both. Leave them free if you want to process the sofaDataString 
+			of the view (the whole view). Otherwise the command will be processed 
+			with each InputFeature of the annotations of the specified InputAnnotation type as input. Most of the time you will use coveredText as the 
+			InputFeature value.</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>false</mandatory>

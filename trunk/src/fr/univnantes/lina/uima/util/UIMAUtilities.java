@@ -140,41 +140,48 @@ public class UIMAUtilities {
 	}
 
 	/**
-	 * Get the method of a given annotation Class 
+	 * Invoke a getter method of a given annotation Class/Annotation which return a String  
 	 * Allow to know the method of the annotation to handle only at the runtime level
-	 * @param AnnotationClass
-	 * @param featureName
-	 * @return getFeatureMethod
+	 * @param InputAnnotationClass
+	 * @param inputAnnotation
+	 * @param inputFeatureString
+	 * @return result
 	 * @throws AnalysisEngineProcessException
 	 */
-	public static Method getMethod(Class AnnotationClass, String featureName) throws AnalysisEngineProcessException {
+		public static String invokeStringGetMethod(Class InputAnnotationClass, Annotation inputAnnotation, String inputFeatureString) throws AnalysisEngineProcessException {
 
-		Method getFeatureMethod = null;
+			String result = "";
+			
+			// Récupère la méthode pour "getter" la value de l'InputFeature
+			String getFeatureMethodName = "get" + inputFeatureString.substring(0, 1).toUpperCase() + inputFeatureString.substring(1);
 
-		// coveredText -> getCoveredText
-		String getFeatureMethodName = "get" + featureName.substring(0, 1).toUpperCase() + featureName.substring(1);
-		try {
-			// getPosTag =
-			// InputAnnotationClass.getMethod("getPosTag");
-			// featureNameGetMethod =
-			// InputAnnotationClass.getMethod("getCoveredText");
-			getFeatureMethod = AnnotationClass
-			.getMethod(getFeatureMethodName);
+			Method getFeatureMethod = null;
+			try {
+				getFeatureMethod = InputAnnotationClass.getMethod(getFeatureMethodName);
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		} catch (SecurityException e) {
-			String errmsg = "Error: SecurityException when getting the " + 
-			featureName + " method ("+getFeatureMethodName+") of a given class object !";
-			throw new AnalysisEngineProcessException(errmsg,
-					new Object[] { featureName },e);	
-			//e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			String errmsg = "Error: " + 
-			featureName + " method not found for the given class object !";
-			throw new AnalysisEngineProcessException(errmsg,
-					new Object[] { featureName },e);	
-			//e.printStackTrace();
-		}
-		return getFeatureMethod;
+			// Test contre la création d'annotations fantomes
+			 
+			try {
+				result = (String) getFeatureMethod.invoke(inputAnnotation);
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		return result;
 	}
 
 
@@ -251,9 +258,9 @@ public class UIMAUtilities {
 			Method setEnd = TgtClass.getMethod("setEnd", Integer.TYPE);
 
 			// value -> setValue
-			String getFeatureMethodName = "set" + featureNameToSet.substring(0, 1).toUpperCase() + featureNameToSet.substring(1);
-
-			Method setValue = TgtClass.getMethod(getFeatureMethodName, String.class);
+			String setFeatureMethodName = "set" + featureNameToSet.substring(0, 1).toUpperCase() + featureNameToSet.substring(1);
+			
+			Method setValue = TgtClass.getMethod(setFeatureMethodName, String.class);
 
 			// Ajouts à l'annotation du type target
 			setBegin.invoke(t, beginFeatureValue);

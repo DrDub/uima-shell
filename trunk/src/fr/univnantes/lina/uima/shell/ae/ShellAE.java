@@ -107,6 +107,9 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 	// Type name of the annotations to consider as the token units to be
 	// processed
 	public static String PARAM_NAME_INPUT_ANNOTATION = "InputAnnotation";
+	// Feature name of the annotations to consider as the token units to be
+	// processed
+	public static String PARAM_NAME_INPUT_FEATURE = "InputFeature";
 	// View name to consider as the view to receive the result
 	public static String PARAM_NAME_OUTPUT_VIEW = "OutputView";
 	// Type mime to consider for storing the result in the sofaDataString
@@ -129,6 +132,9 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 	public static String DEFAULT_CONTEXT_ANNOTATION = "uima.tcas.DocumentAnnotation";
 	// Default annotation name if none are specified by the input annotation
 	// parameter
+	// Default feature name if none are specified by the input feature
+	// parameter when the input annotation parameter is set
+	//public static String DEFAULT_INPUT_FEATURE = "coveredText";
 	//public static String DEFAULT_INPUT_ANNOTATION = "TokenAnnotation";
 	// Default annotation name if none are specified by the output annotation
 	// parameter
@@ -166,6 +172,7 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 	private String inputViewString = null;
 	private String contextAnnotationString = null;
 	private String inputAnnotationString = null;
+	private String inputFeatureString = null;
 
 	private String outputViewString = null;
 	private String outputViewTypeMimeString = null;
@@ -206,7 +213,6 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 	throws ResourceInitializationException {
 		super.initialize(aContext);
 
-
 		/** Get parameter values **/
 		runIdString = (String) aContext
 		.getConfigParameterValue(PARAM_NAME_RUNID); 
@@ -229,6 +235,17 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 
 		inputAnnotationString = (String) aContext
 		.getConfigParameterValue(PARAM_NAME_INPUT_ANNOTATION); 
+		
+		inputFeatureString = (String) aContext
+		.getConfigParameterValue(PARAM_NAME_INPUT_FEATURE);
+		if (((inputFeatureString != null) && (inputAnnotationString == null)) || ((inputFeatureString == null) && (inputAnnotationString != null)) ){
+			String errmsg = "Error: If one of the parameter " + PARAM_NAME_INPUT_ANNOTATION
+			+ " or " + PARAM_NAME_INPUT_FEATURE
+			+ " is defined, both must be !";
+			throw new  ResourceInitializationException(errmsg,
+					new Object[] {  });	
+			//e.printStackTrace();
+		}
 
 		outputViewString = (String) aContext.getConfigParameterValue(PARAM_NAME_OUTPUT_VIEW);
 		if (outputViewString == null) {
@@ -302,7 +319,7 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 
 		log("-----------------------------------------------------------------------------------------------------------------");
 		log("Process the input view or annotation of a given type (potentially covered by a context annotation of a given type)");
-		browseInput(aJCas, inputViewString, contextAnnotationString, inputAnnotationString, outputViewString, outputViewTypeMimeString, outputAnnotationString, outputFeatureString);
+		browseInput(aJCas, inputViewString, contextAnnotationString, inputAnnotationString,  inputFeatureString, outputViewString, outputViewTypeMimeString, outputAnnotationString, outputFeatureString);
 	
 	}
 
@@ -320,13 +337,14 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 	 * @param inputAnnotationType
 	 *            Type name of the annotations to consider as the token units to
 	 *            be processed
+	 * @param inputFeatureString
 	 * @param outputViewString
 	 * @param outputViewTypeMimeString
 	 * @param outputAnnotationString
 	 * @param ouputFeatureString
 	 * @throws AnalysisEngineProcessException
 	 */
-	public void browseInput(JCas aJCas, String inputViewString, String contextAnnotationString, String inputAnnotationString, String outputViewString, String outputViewTypeMimeString, String outputAnnotationString, String ouputFeatureString) throws AnalysisEngineProcessException {
+	public void browseInput(JCas aJCas, String inputViewString, String contextAnnotationString, String inputAnnotationString, String inputFeatureString, String outputViewString, String outputViewTypeMimeString, String outputAnnotationString, String ouputFeatureString) throws AnalysisEngineProcessException {
 
 		// var to concat the results in case of a view as the output type 
 		String commandResultString = "";
@@ -428,7 +446,7 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 			//if (outputAnnotationString == null) {
 			//}
 
-			// Pour chaque inputAnnotation présent dans le context
+			// Pour chaque inputAnnotation présent dans le context ou input view
 			while (annotationLoopHasNext) {
 
 				String inputTextToProcess = "" ;
@@ -444,22 +462,29 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 				log("Getting the text to proceed");
 				if (inputType.equalsIgnoreCase(INPUTTYPE_ANNOTATION)) {
 					// Récupère et cast l'inputAnnotation courante à manipuler
-					try {
+					//try {
+					//	InputAnnotationClass = (Class<Annotation>) Class
+					//	.forName(inputAnnotationString);
 						InputAnnotationClass = UIMAUtilities.getClass(inputAnnotationString);
-					} catch (AnalysisEngineProcessException e) {
-						String errmsg = "Error: Class " + inputAnnotationString
-						+ " not found !";
-						throw new AnalysisEngineProcessException(errmsg,
-								new Object[] { inputAnnotationString },e);	
-						//e.printStackTrace();
-					}
+					//} catch (ClassNotFoundException e) {
+
+					//} catch (AnalysisEngineProcessException e) {
+					//	String errmsg = "Error: Class " + inputAnnotationString
+					//	+ " not found !";
+					//	throw new AnalysisEngineProcessException(errmsg,
+					//			new Object[] { inputAnnotationString },e);	
+					//	//e.printStackTrace();
+					//}
 					inputAnnotation = (Annotation) inputAnnotationIter
 					.next();
 					InputAnnotationClass.cast(inputAnnotation);
 
 					
-					//
-					inputTextToProcess = inputAnnotation.getCoveredText();
+					// Invoque la récupération de la valeur dont l'inputFeatureString est spécifiée pour l'annotation courante 
+					//inputTextToProcess = inputAnnotation.getCoveredText();
+					inputTextToProcess = UIMAUtilities.invokeStringGetMethod(InputAnnotationClass, inputAnnotation, inputFeatureString);
+					
+					//log ("Debug: inputTextToProcess>"+inputTextToProcess+"<");
 					beginFeatureValueFromAnnotationToCreate = inputAnnotation.getBegin(); 
 					endFeatureValueFromAnnotationToCreate= inputAnnotation.getEnd(); 
 				}
