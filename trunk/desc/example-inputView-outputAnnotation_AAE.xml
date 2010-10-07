@@ -120,7 +120,7 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
             <string>| perl -ne 's/(\w)([\.,?])/$1 $2/g; s/ /\n/g; print'</string>
             <string>| sort</string>
             <string>| uniq</string>
-            <string>| wc</string>
+            <string>| wc -l</string>
           </array>
         </value>
       </nameValuePair>
