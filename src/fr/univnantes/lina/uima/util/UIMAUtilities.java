@@ -19,6 +19,8 @@
 package fr.univnantes.lina.uima.util;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -176,6 +178,159 @@ public class UIMAUtilities {
 	}
 
 
+	/**
+	 * This method create an annotation.
+	 * 
+	 * @param aJCas
+	 *            the CAS over which the process is performed
+	 * @param annotationNameToCreate
+	 * @param beginFeatureValue
+	 * @param endFeatureValue
+	 * @param featureNameToSet            
+	 * @param valueFeatureValue
+	 * @throws AnalysisEngineProcessException 
+	 */
+	public static void createAnnotation(JCas aJCas, String annotationNameToCreate,
+			int beginFeatureValue, int endFeatureValue, String featureNameToSet, String valueFeatureValue) throws AnalysisEngineProcessException {
+
+		// Crée une annotation générique
+		// SequenceMatch sequenceMatch = new SequenceMatch(aJCas);
+		// sequenceMatch.setBegin(patternHashMap.get(patternKeyString).getCurrentStartIndexCursor());
+		// sequenceMatch.setEnd(tokenAnnotation.getEnd());
+		// sequenceMatch.setValue(patternKeyString);
+		// sequenceMatch.addToIndexes();
+
+		// Crée une annotation prédéfinie
+		// Object[] args = null;
+
+
+		try {
+			Object[] args = null;
+
+			Class<Annotation> TgtClass = (Class<Annotation>) Class
+			.forName(annotationNameToCreate);
+
+			// System.out.println("Debug: ----------------------------------------------------------------------"
+			// );
+			// System.out.println("Debug: TgtClass.getName()	= " +
+			// TgtClass.getName());
+			// System.out.println("Debug: patternHashMap.get(patternKeyString).getTargetType()	= "
+			// + patternHashMap.get(patternKeyString).getTargetType());
+
+			// Génére le constructeur de la classe de l'annotation à créer
+			Constructor<?> tgtConstr = TgtClass
+			.getConstructor(new Class[] { JCas.class });
+
+			// Crée une annotation du type target
+			Object t = null;
+			t = tgtConstr.newInstance(new Object[] { aJCas });
+			TgtClass.cast(t);
+
+			// System.out.println("Debug: t.getClass().getName()	= " +
+			// t.getClass().getName());
+			// System.out.println("Debug: t.getClass().getDeclaredMethods().length	= "
+			// + t.getClass().getDeclaredMethods().length);
+
+			// for (int l = 0 ; l < t.getClass().getDeclaredMethods().length ;
+			// l++ ) {
+			// System.out.println("Debug: t.getClass().getDeclaredMethods()[l]= "
+			// + t.getClass().getDeclaredMethods()[l]);
+			// }
+
+			// for (int l = 0 ; l < t.getClass().getMethods().length ; l++ ) {
+			// System.out.println("Debug: t.getClass().getMethods()[l]= " +
+			// t.getClass().getMethods()[l]);
+			// }
+
+			// jxpathContext = JXPathContext.newContext(t);
+			// Récupère la méthode addToIndexes de la classe target
+			Method addToIndexes = TgtClass.getMethod("addToIndexes",
+					new Class[] {});
+			// Récupère les méthodes pour accéder aux features souhaitées
+			Method setBegin = TgtClass.getMethod("setBegin", Integer.TYPE);
+			Method setEnd = TgtClass.getMethod("setEnd", Integer.TYPE);
+
+			// value -> setValue
+			String getFeatureMethodName = "set" + featureNameToSet.substring(0, 1).toUpperCase() + featureNameToSet.substring(1);
+
+			Method setValue = TgtClass.getMethod(getFeatureMethodName, String.class);
+
+			// Ajouts à l'annotation du type target
+			setBegin.invoke(t, beginFeatureValue);
+			setEnd.invoke(t, endFeatureValue);
+			setValue.invoke(t, valueFeatureValue);
+
+
+			// Test contre la création d'annotations fantomes
+			if (beginFeatureValue < endFeatureValue) 
+				addToIndexes.invoke(t, args);
+
+		} catch (IllegalArgumentException e) {
+			String errmsg = "Error: IllegalArgumentException  !";
+			throw new AnalysisEngineProcessException(errmsg,
+					new Object[] {  },e);	
+			//e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			String errmsg = "Error: IllegalAccessException  !";
+			throw new AnalysisEngineProcessException(errmsg,
+					new Object[] {  },e);	
+			//e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			String errmsg = "Error: InvocationTargetException  !";
+			throw new AnalysisEngineProcessException(errmsg,
+					new Object[] {  },e);	
+			//e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			String errmsg = "Error: ClassNotFoundException  !";
+			throw new AnalysisEngineProcessException(errmsg,
+					new Object[] {  },e);	
+			//e.printStackTrace();
+		} catch (SecurityException e) {
+			String errmsg = "Error: SecurityException  !";
+			throw new AnalysisEngineProcessException(errmsg,
+					new Object[] {  },e);	
+			//e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			String errmsg = "Error: NoSuchMethodException  !";
+			throw new AnalysisEngineProcessException(errmsg,
+					new Object[] {  },e);	
+			//e.printStackTrace();
+		} catch (InstantiationException e) {
+			String errmsg = "Error: InstantiationException  !";
+			throw new AnalysisEngineProcessException(errmsg,
+					new Object[] {  },e);	
+			//e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * This method create a view.
+	 * 
+	 * @param aJCas
+	 *            the CAS over which the process is performed
+	 * @param outputViewString
+	 * @param sofaDataString
+	 * @param sofaDataStringTypeMimeString
+
+	 * @throws AnalysisEngineProcessException 
+	 */
+	public static void createView(JCas aJCas, String outputViewString, String sofaDataString, String sofaDataStringTypeMimeString) throws AnalysisEngineProcessException {
+
+		try {
+			aJCas.createView(outputViewString);
+			JCas outputView = UIMAUtilities.getView(aJCas, outputViewString);
+			//outputView.setDocumentText(commandResultString);
+			outputView.setSofaDataString(sofaDataString,sofaDataStringTypeMimeString);
+
+		} catch (CASException e) {
+			String errmsg = "Error: Cannot create the view "+outputViewString +" !";
+			throw new AnalysisEngineProcessException(errmsg,
+					new Object[] {  },e);	
+			// e.printStackTrace();
+		}
+	}
+
+	
 	/**
 	 * Return the sofaDataString of a JCAS corresponding to the given view 
 	 * @param aJCas

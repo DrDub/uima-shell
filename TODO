@@ -23,7 +23,6 @@
 
 	* how to use dans le readme (operational instructions)
 	* rendre paramétrable un InputFeature (pas nécessairement coveredText)
-	* factoriser si possible la gestion de la création des view/annotation pour l'input view et l'input annotation
 	* gérer les in out et err stream de la méthode command de la classe Shell
 	* revoir les signatures des méthodes (notamment process) pour gérer les paramètres globaux/locaux
 	* modifier le code pour setter les feature runID et componentId

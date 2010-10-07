@@ -21,6 +21,9 @@
 # Fichier ChangeLog
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
+2010-10-07  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
+	* ShellAE.java: factoriser la gestion de la création des view/annotation pour l'input view et l'input annotation
+
 
 YYYY-MM-DD  John Doe  <johndoe@example.com>
 

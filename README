@@ -24,29 +24,45 @@
 
 OVERVIEW
 
-	Ce projet a pour objet l'implémentation d'un uima-ae permettant l'exécution 
-	d'une commande SHELL sur un élément du CAS (vue,  INPUT_VIEW, ou annotation, INPUT_ANNOTATION)
-	et l'enrichissement du CAS avec le résultat du traitement (soit sous la 
-	forme d'un SofaDataString d'une nouvelle vue OUTPUT_VIEW ou comme valeur
-	d'une feature de type String d'une OUTPUT_ANNOTATION).
+	Ce projet a pour objet l'implémentation d'un Analysis Engine permettant 
+	l'exécution d'une commande shell sur un élément du CAS (Common Analysis 
+	Structure) et l'enrichissement du CAS avec le résultat du traitement. 
+	L'entrée de la commande peut être soit le SofaDataString d'une vue 
+	spécifiée, soit le texte couvert par un type d'annotation (lesquelles 
+	elles-même apparaîssent optionnellement dans certains contextes marqués par 
+	un autre type annotation). La sortie peut être produite soit sous la forme 
+	d'un SofaDataString d'une nouvelle vue créée pour l'occasion ou bien comme 
+	valeur d'une feature de type String d'une annotation spécifiée elle aussi 
+	créée pour l'occasion.
 	
 	
 FEATURES
 
-	* implémentation d'un ae réalisant une commande SHELL sur un élément input du CAS 
-	(vue|annotation) et produisant un nouvel élément output (vue|annotation) au sein du CAS
-	* traitement utilisant l'API SHELL de F Martini (alias adiGuba) distribuée sous licence
-	CeCILL-C et qui permet de simplifier l'exécution de programme et de ligne de commande 
-	depuis Java. 
+	* implémentation d'un ae réalisant une commande SHELL sur un élément input
+	 du CAS (vue|annotation) et produisant un nouvel élément output 
+	 (vue|annotation) au sein du CAS
+	* traitement utilisant l'API SHELL de F Martini (alias adiGuba) distribuée 
+	sous licence CeCILL-C et qui permet de simplifier l'exécution de programme 
+	et de ligne de commande depuis Java. 
 	http://blog.developpez.com/adiguba/p3035/java/5-0-tiger/runtime-exec-n-est-pas-des-plus-simple/
-	* gestion de multiples formats des commandes à encapsuler  
+	* gestion de multiples formats des commandes à exécuter où la donnée à 
+	traiter peut aussi bien provenir de l'entrée standard ou constituer un
+	fichier texte passé en argument, être récupéré du système de fichier, pipé, 
+	redirigé...   
 	* traitement de la command SHELL sous forme d'un thread
-	* paramétrage générique des input/output view/annotation/feature à l'aide de l'API java.lang.reflect 
-	(constitue des exemples de code générique) 
+	* paramétrage libre et générique des éléments du CAS 
+	(view/annotation/feature) d'entrée (à traiter) et de sortie (à créer) 
+	notamment à l'aide de l'API java.lang.reflect (constitue des exemples de 
+	code générique)
 	
 	
 DESCRIPTION
 
+	Le principal objectif du composant est de permettre d'utiliser au sein d'une 
+	chaîne UIMA des outils accessibles en ligne de commande lesquels réalisent 
+	leur traitement soit sur l'entrée standard (stdin) soit sur un fichier via 
+	son nom passé en argument et produisent leur résultat sur la sortie standard.
+	
 	Quatre configurations de traitement sont possibles suivant le type d'entrée
     (input), vue ou annotation, et le type de sortie (output), vue ou annotation.
     On peut faire réaliser un traitement soit sur le sofaDataString d'une vue 
