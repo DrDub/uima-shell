@@ -21,7 +21,6 @@
 # Fichier TODO
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
-    * src/fr/univnantes/lina/uima/util/AnalysisEngine.java: classe Abstract, réfléchir à comment factoriser le code de browseInput en externalisant la partie de traitement autour de command et le rendre étendable selon les AE afin de réutiliser browseInpt
 	* modulariser en externalisant uima.util et util
 	* gérer les in out et err stream de la méthode command de la classe Shell
 	* accepter des listes d'input view et input annotation
