@@ -235,7 +235,7 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 
 		inputAnnotationString = (String) aContext
 		.getConfigParameterValue(PARAM_NAME_INPUT_ANNOTATION); 
-		
+
 		inputFeatureString = (String) aContext
 		.getConfigParameterValue(PARAM_NAME_INPUT_FEATURE);
 		if (((inputFeatureString != null) && (inputAnnotationString == null)) || ((inputFeatureString == null) && (inputAnnotationString != null)) ){
@@ -320,7 +320,7 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 		log("-----------------------------------------------------------------------------------------------------------------");
 		log("Process the input view or annotation of a given type (potentially covered by a context annotation of a given type)");
 		browseInput(aJCas, inputViewString, contextAnnotationString, inputAnnotationString,  inputFeatureString, outputViewString, outputViewTypeMimeString, outputAnnotationString, outputFeatureString);
-	
+
 	}
 
 
@@ -348,7 +348,7 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 
 		// var to concat the results in case of a view as the output type 
 		String commandResultString = "";
-		
+
 		/** -- Prepare the view to be processed**/
 		log("Getting the inputViewJCas");
 		JCas inputViewJCas = UIMAUtilities.getView(aJCas,inputViewString);
@@ -363,11 +363,11 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 			log("Getting the outputViewJCas");
 			outputViewJCas = UIMAUtilities.getView(aJCas,outputViewString);		
 		}	
-		
+
 
 		//
 		Boolean contextLoopHasNext = false; 
-			
+
 		// Structure de données nécessaires en cas d'inputType == annotation
 		Type contextAnnotationType = null;
 		Type inputAnnotationType = null;
@@ -400,27 +400,27 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 			contextAnnIdx = (AnnotationIndex<Annotation>) inputViewJCas
 			.getAnnotationIndex(contextAnnotationType);
 			contextAnnIdxIter = contextAnnIdx.iterator();
-			
+
 			if (contextAnnIdxIter.hasNext())  contextLoopHasNext = true;
 		}
 		// else if (inputType.equalsIgnoreCase(INPUTTYPE_VIEW))
 		else  contextLoopHasNext = true;
 
-		
-	
-	
+
+
+
 		// Pour chaque context ou input view
 		while (contextLoopHasNext) {
 
 			//
 			Boolean annotationLoopHasNext = false; 
-				
+
 			// Structure de données nécessaires en cas d'inputType == annotation
 			Annotation contextAnnotation = null ;
 			Iterator<Annotation> inputAnnotationIter = null;
 
 			if (inputType.equalsIgnoreCase(INPUTTYPE_ANNOTATION)) {
-				
+
 				log("Getting the Input Annotation index");
 				contextAnnotation = (Annotation) contextAnnIdxIter.next();
 
@@ -461,29 +461,19 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 				// si l'outputType est Annotation
 				log("Getting the text to proceed");
 				if (inputType.equalsIgnoreCase(INPUTTYPE_ANNOTATION)) {
-					// Récupère et cast l'inputAnnotation courante à manipuler
-					//try {
-					//	InputAnnotationClass = (Class<Annotation>) Class
-					//	.forName(inputAnnotationString);
-						InputAnnotationClass = UIMAUtilities.getClass(inputAnnotationString);
-					//} catch (ClassNotFoundException e) {
 
-					//} catch (AnalysisEngineProcessException e) {
-					//	String errmsg = "Error: Class " + inputAnnotationString
-					//	+ " not found !";
-					//	throw new AnalysisEngineProcessException(errmsg,
-					//			new Object[] { inputAnnotationString },e);	
-					//	//e.printStackTrace();
-					//}
+					// Récupère et cast l'inputAnnotation courante à manipuler
+					InputAnnotationClass = UIMAUtilities.getClass(inputAnnotationString);
+
 					inputAnnotation = (Annotation) inputAnnotationIter
 					.next();
 					InputAnnotationClass.cast(inputAnnotation);
 
-					
+
 					// Invoque la récupération de la valeur dont l'inputFeatureString est spécifiée pour l'annotation courante 
-					//inputTextToProcess = inputAnnotation.getCoveredText();
+					// inputTextToProcess = inputAnnotation.getCoveredText();
 					inputTextToProcess = UIMAUtilities.invokeStringGetMethod(InputAnnotationClass, inputAnnotation, inputFeatureString);
-					
+
 					//log ("Debug: inputTextToProcess>"+inputTextToProcess+"<");
 					beginFeatureValueFromAnnotationToCreate = inputAnnotation.getBegin(); 
 					endFeatureValueFromAnnotationToCreate= inputAnnotation.getEnd(); 
@@ -522,13 +512,13 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 						commandLocalResultString;
 					//}
 				}	
-				
+
 				if (inputType.equalsIgnoreCase(INPUTTYPE_ANNOTATION)) {
 					if (inputAnnotationIter.hasNext())  annotationLoopHasNext = true;
 					else annotationLoopHasNext = false;}
 				else annotationLoopHasNext = false;
 			}
-			
+
 			if (inputType.equalsIgnoreCase(INPUTTYPE_ANNOTATION)) {
 				if (contextAnnIdxIter.hasNext())  contextLoopHasNext = true;
 				else contextLoopHasNext = false;}
@@ -544,10 +534,6 @@ public class ShellAE extends JCasAnnotator_ImplBase {
 			UIMAUtilities.createView(aJCas, outputViewString, commandResultString, outputViewTypeMimeString);
 		}
 	}
-
-
-
-
 
 
 
