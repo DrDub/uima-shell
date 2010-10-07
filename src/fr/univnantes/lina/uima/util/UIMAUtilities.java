@@ -28,8 +28,6 @@ import org.apache.uima.cas.CASException;
 import org.apache.uima.cas.Type;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
-import org.apache.uima.util.Level;
-import org.apache.uima.analysis_component.AnalysisComponent;
 
 import fr.univnantes.lina.util.JavaUtilities;
 

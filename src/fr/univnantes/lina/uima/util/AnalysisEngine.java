@@ -20,8 +20,7 @@
 package fr.univnantes.lina.uima.util;
 
 
-import fr.univnantes.lina.uima.util.UIMAUtilities;
-//
+import java.util.Iterator;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.AnalysisComponent;
@@ -29,12 +28,9 @@ import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.Type;
 import org.apache.uima.cas.text.AnnotationIndex;
-import org.apache.uima.jcas.JCas; //
+import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
-
-import org.apache.uima.resource.ResourceInitializationException; 
-
-import java.util.Iterator;
+import org.apache.uima.resource.ResourceInitializationException;
 
 
 /**
@@ -244,8 +240,8 @@ public abstract class AnalysisEngine extends JCasAnnotator_ImplBase {
 
 
 	/**
-	 * This method is invoked when the analysis has to be processed for some
-	 * input annotations which  belongs to specific contextAnnotation.
+	 * This method is invoked when the analysis has to be processed for some view or 
+	 * some input annotations which are covered by specific contextAnnotation.
 	 * 
 	 * @param aJCas
 	 *            the CAS over which the process is performed
@@ -283,7 +279,6 @@ public abstract class AnalysisEngine extends JCasAnnotator_ImplBase {
 			outputViewJCas = UIMAUtilities.getView(aJCas,outputViewString);		
 		}	
 
-
 		//
 		Boolean contextLoopHasNext = false; 
 
@@ -291,8 +286,8 @@ public abstract class AnalysisEngine extends JCasAnnotator_ImplBase {
 		Type contextAnnotationType = null;
 		Type inputAnnotationType = null;
 
-		AnnotationIndex<Annotation> contextAnnIdx = null; 
-		Iterator<Annotation> contextAnnIdxIter = null;
+		AnnotationIndex<Annotation> contextAnnotationIndex = null; 
+		Iterator<Annotation> contextAnnotationIndexIterator = null;
 
 		if (inputType.equalsIgnoreCase(INPUTTYPE_ANNOTATION)) {
 			log("Getting the Context Annotation index");
@@ -316,11 +311,11 @@ public abstract class AnalysisEngine extends JCasAnnotator_ImplBase {
 			// avec reflect
 			//    FSIndex<Annotation> inputAnnotationFSIdx = aJCas
 			//    .getAnnotationIndex(inputAnnotationType);
-			contextAnnIdx = (AnnotationIndex<Annotation>) inputViewJCas
+			contextAnnotationIndex = (AnnotationIndex<Annotation>) inputViewJCas
 			.getAnnotationIndex(contextAnnotationType);
-			contextAnnIdxIter = contextAnnIdx.iterator();
+			contextAnnotationIndexIterator = contextAnnotationIndex.iterator();
 
-			if (contextAnnIdxIter.hasNext())  contextLoopHasNext = true;
+			if (contextAnnotationIndexIterator.hasNext())  contextLoopHasNext = true;
 		}
 		// else if (inputType.equalsIgnoreCase(INPUTTYPE_VIEW))
 		else  contextLoopHasNext = true;
@@ -333,22 +328,22 @@ public abstract class AnalysisEngine extends JCasAnnotator_ImplBase {
 
 			// Structure de données nécessaires en cas d'inputType == annotation
 			Annotation contextAnnotation = null ;
-			Iterator<Annotation> inputAnnotationIter = null;
+			Iterator<Annotation> inputAnnotationIterator = null;
 
 			if (inputType.equalsIgnoreCase(INPUTTYPE_ANNOTATION)) {
 
 				log("Getting the Input Annotation index");
-				contextAnnotation = (Annotation) contextAnnIdxIter.next();
+				contextAnnotation = (Annotation) contextAnnotationIndexIterator.next();
 
 				// Récupération de la liste des inputAnnotation
 				// en théorie : création d'un index à partir DES inputAnnotationType et récupération d'un iterator dessus
 				// mais pour l'instant on suppose qu'UN seul inputAnnotationType n'est possible à la fois
-				inputAnnotationIter = inputViewJCas
+				inputAnnotationIterator = inputViewJCas
 				.getAnnotationIndex(inputAnnotationType).subiterator(
 						contextAnnotation);
 				// Iterator<Annotation> inputAnnotationIter = inputAnnotationFSIdx
 				// .iterator();
-				if (inputAnnotationIter.hasNext())  annotationLoopHasNext = true;
+				if (inputAnnotationIterator.hasNext())  annotationLoopHasNext = true;
 			}
 			else annotationLoopHasNext = true;
 
@@ -381,7 +376,7 @@ public abstract class AnalysisEngine extends JCasAnnotator_ImplBase {
 					// Récupère et cast l'inputAnnotation courante à manipuler
 					InputAnnotationClass = UIMAUtilities.getClass(inputAnnotationString);
 
-					inputAnnotation = (Annotation) inputAnnotationIter
+					inputAnnotation = (Annotation) inputAnnotationIterator
 					.next();
 					InputAnnotationClass.cast(inputAnnotation);
 
@@ -427,13 +422,13 @@ public abstract class AnalysisEngine extends JCasAnnotator_ImplBase {
 				}	
 
 				if (inputType.equalsIgnoreCase(INPUTTYPE_ANNOTATION)) {
-					if (inputAnnotationIter.hasNext())  annotationLoopHasNext = true;
+					if (inputAnnotationIterator.hasNext())  annotationLoopHasNext = true;
 					else annotationLoopHasNext = false;}
 				else annotationLoopHasNext = false;
 			}
 
 			if (inputType.equalsIgnoreCase(INPUTTYPE_ANNOTATION)) {
-				if (contextAnnIdxIter.hasNext())  contextLoopHasNext = true;
+				if (contextAnnotationIndexIterator.hasNext())  contextLoopHasNext = true;
 				else contextLoopHasNext = false;}
 			else contextLoopHasNext = false;
 		}
