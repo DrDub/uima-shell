@@ -21,9 +21,10 @@
 # Fichier TODO
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
-    * réfléchir à comment factoriser le code de browseInput en externalisant la partie de traitement autour de command et le rendre étendable selon les AE afin de réutiliser browseInpt
-	* rendre paramétrable un InputFeature (pas nécessairement coveredText)
+    * src/fr/univnantes/lina/uima/util/AnalysisEngine.java: classe Abstract, réfléchir à comment factoriser le code de browseInput en externalisant la partie de traitement autour de command et le rendre étendable selon les AE afin de réutiliser browseInpt
+	* modulariser en externalisant uima.util et util
 	* gérer les in out et err stream de la méthode command de la classe Shell
+	* accepter des listes d'input view et input annotation
 	* modifier le code pour setter les feature runID et componentId
 	* rendre plus générique la méthode createAnnotation pour permettre avec en argument un map nom des features et valeurs des features
 	* FScontraint à la place des subiterator (notamment pour le contexte)
@@ -31,7 +32,7 @@
 	* gestion des logs à la uima
 	* rajouter du code test e.g. http://code.google.com/p/uutuc/
 	* permettre la conversion d'encodage de l'input vers ce qui est passé en entrée du process et de la sortie du process vers ce qui est à sauvegarder 
-	* refactorer la gestion de la configuration du shell
+	* refactorer la gestion de la configuration du shell 
 	* un script pour faciliter la construction si en dehors d'Eclipse ?
 	* une liste de discussion associée à la forge
 	
