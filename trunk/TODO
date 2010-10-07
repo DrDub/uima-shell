@@ -21,7 +21,6 @@
 # Fichier TODO
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
-	* modulariser en externalisant uima.util et util
 	* gérer les in out et err stream de la méthode command de la classe Shell
 	* accepter des listes d'input view et input annotation
 	* modifier le code pour setter les feature runID et componentId

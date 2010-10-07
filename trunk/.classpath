@@ -13,5 +13,6 @@
 	<classpathentry kind="var" path="UIMA_HOME/lib/uima-tools.jar"/>
 	<classpathentry kind="var" path="UIMA_HOME/addons/annotator/WhitespaceTokenizer/lib/uima-an-wst.jar"/>
 	<classpathentry kind="lib" path="lib/Shell.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/uima-util"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
