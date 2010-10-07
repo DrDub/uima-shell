@@ -44,6 +44,19 @@
         </overrides>
       </configurationParameter>
       <configurationParameter>
+        <name>InputFeature</name>
+        <description>Optional. InputAnnotation and InputFeature must be set both. Leave them free if you want to process the sofaDataString 
+			of the view (the whole view). Otherwise the command will be processed 
+			with each InputFeature of the annotations of the specified InputAnnotation type as input. Most of the time you will use coveredText as the 
+			InputFeature value.</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+        <overrides>
+          <parameter>ShellAE/InputFeature</parameter>
+        </overrides>
+      </configurationParameter>
+      <configurationParameter>
         <name>OutputView</name>
         <type>String</type>
         <multiValued>false</multiValued>
@@ -140,6 +153,12 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
         <name>OutputView</name>
         <value>
           <string>myNewOutputView</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>InputFeature</name>
+        <value>
+          <string>coveredText</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>

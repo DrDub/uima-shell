@@ -22,7 +22,11 @@
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
 2010-10-07  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
-	* ShellAE.java: factoriser la gestion de la création des view/annotation pour l'input view et l'input annotation
+    * ShellAE.java ainsi que ShellAE.xml et UIMAUtilities.java: 
+    	* factoriser la gestion de la création des view/annotation pour l'input view et l'input annotation
+    	* ajout du paramètre inputFeature pour ne pas restreindre à la feature coveredText des annotations à traiter
+    * example-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml: ajout du descripteur
+	* README: mis à jour notamment la description du composant, des parametres, les instructions d'exécution, les exemples
 
 
 YYYY-MM-DD  John Doe  <johndoe@example.com>
