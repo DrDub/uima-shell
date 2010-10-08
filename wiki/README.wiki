@@ -1,4 +1,4 @@
 #summary README
 #labels Featured
 
-Go to the [http://code.google.com/p/uima-shell-ae/source/browse/trunk/README current README version]
+Go to the [http://code.google.com/p/uima-shell/source/browse/trunk/README current README version]
