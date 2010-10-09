@@ -21,6 +21,9 @@
 # Fichier ChangeLog
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
+2010-10-09  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
+	* desc/*: Suite au refactoring de UIMA-common : paramètre InputAnnotationString -> InputAnnotationStringArray
+	
 2010-10-07  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 	* modularisation de src/fr/univnantes/lina/util et src/fr/univnantes/lina/uima/util et externalisation dans projet distinct
     * src/fr/univnantes/lina/uima/util/AnalysisEngine.java: classe Abstract permettant la gestion générique des input/output view/annotation/feature

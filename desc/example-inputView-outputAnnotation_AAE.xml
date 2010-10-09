@@ -34,7 +34,7 @@
       <configurationParameter>
         <name>InputAnnotation</name>
         <type>String</type>
-        <multiValued>false</multiValued>
+        <multiValued>true</multiValued>
         <mandatory>false</mandatory>
         <overrides>
           <parameter>ShellAE/InputAnnotation</parameter>
@@ -147,7 +147,6 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
       <capability>
         <inputs/>
         <outputs>
-
           <type allAnnotatorFeatures="true">fr.univnantes.lina.uima.shell.types.ShellAnnotation</type>
         </outputs>
         <languagesSupported/>

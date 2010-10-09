@@ -34,7 +34,7 @@
       <configurationParameter>
         <name>InputAnnotation</name>
         <type>String</type>
-        <multiValued>false</multiValued>
+        <multiValued>true</multiValued>
         <mandatory>false</mandatory>
         <overrides>
           <parameter>ShellAE/InputAnnotation</parameter>

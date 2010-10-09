@@ -28,12 +28,13 @@ OVERVIEW
 	l'exécution d'une commande shell sur un élément du CAS (Common Analysis 
 	Structure) et l'enrichissement du CAS avec le résultat du traitement. 
 	L'entrée de la commande peut être soit le SofaDataString d'une vue 
-	spécifiée, soit la valeur d'une feature String spécifiée d'annotations d'un type spécifié  
-	(elles-même pouvant apparaître optionnellement dans certains contextes marqués par 
-	un autre type annotation spécifié). La sortie peut être produite soit sous la forme 
-	d'un SofaDataString d'une nouvelle vue créée pour l'occasion ou bien comme 
-	valeur d'une feature de type String d'une annotation spécifiée elle aussi 
-	créée pour l'occasion.
+	spécifiée, soit la valeur d'une feature String d'une annotation elles aussi 
+	spécifiés (e.g. le coveredText). Il est possible de restreindre le 
+	traitement à des annotations apparaissant dans certains contextes marqués 
+	par un autre type d'annotation à spécifier. La sortie peut être produite 
+	soit sous la forme d'un SofaDataString d'une nouvelle vue créée pour 
+	l'occasion ou bien comme valeur d'une feature de type String d'une 
+	annotation spécifiée elle aussi	créée pour l'occasion.
 	
 	
 FEATURES
@@ -116,7 +117,8 @@ INSTALLATION INSTRUCTIONS
 	distribuée sous licence CeCILL-C et qui permet de simplifier l'exécution de 
 	programme et de ligne de commande depuis Java. 
 	http://adiguba.developpez.com/download/cecill-c/?file=libs/Shell.jar
- 	* ajouter au BUILD_PATH, la bibliothèque uima-shell-ae.jar délivrée par ce projet
+ 	* ajouter au BUILD_PATH, la bibliothèque uima-shell.jar délivrée par ce projet
+ 	ainsi que la lib uima-util.jar référencée sur le site
  	* Some examples use UIMA_HOME/addons/annotator/WhitespaceTokenizer/lib/uima-an-wst.jar 
 	which should be so added to your BUILD_PATH
  	* créer un descripteur que vous déclarez en aggregate (onglet Overview)

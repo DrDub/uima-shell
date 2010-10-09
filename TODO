@@ -22,14 +22,6 @@
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
 	* gérer les in out et err stream de la méthode command de la classe Shell
-	* accepter des listes d'input view et input annotation
-	* modifier le code pour setter les feature runID et componentId
-	* rendre plus générique la méthode createAnnotation pour permettre avec en argument un map nom des features et valeurs des features
-	* FScontraint à la place des subiterator (notamment pour le contexte)
-	* gestion des couples nom annotation, nom feature avec feature path	notamment changer le couple PARAM_OUTPUT_ANNOTATION, PARAM_OUTPUT_FEATURE avec FEATUREPATH
-	* gestion des logs à la uima
-	* rajouter du code test e.g. http://code.google.com/p/uutuc/
-	* permettre la conversion d'encodage de l'input vers ce qui est passé en entrée du process et de la sortie du process vers ce qui est à sauvegarder 
 	* refactorer la gestion de la configuration du shell 
 	* un script pour faciliter la construction si en dehors d'Eclipse ?
 	* une liste de discussion associée à la forge

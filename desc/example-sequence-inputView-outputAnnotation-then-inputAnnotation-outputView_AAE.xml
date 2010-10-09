@@ -125,7 +125,7 @@ Any Annotation type name et feature name can be used. In order to make
 			with each InputFeature of the annotations of the specified InputAnnotation type as input. Most of the time you will use coveredText as the 
 			InputFeature value.</description>
         <type>String</type>
-        <multiValued>false</multiValued>
+        <multiValued>true</multiValued>
         <mandatory>false</mandatory>
         <overrides>
           <parameter>ShellAE2/InputAnnotation</parameter>
@@ -222,7 +222,8 @@ Any Annotation type name et feature name can be used. In order to make
       <nameValuePair>
         <name>InputAnnotation</name>
         <value>
-          <string>fr.univnantes.lina.uima.shell.types.ShellAnnotation</string>
+        <array>
+          <string>fr.univnantes.lina.uima.shell.types.ShellAnnotation</string></array>
         </value>
       </nameValuePair>
       <nameValuePair>
