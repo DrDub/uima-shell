@@ -46,7 +46,7 @@ Execute any Shell command by taking any view or annotation as input and by creat
 			with each InputFeature of the annotations of the specified InputAnnotation type as input. Most of the time you will use coveredText as the 
 			InputFeature value.</description>
         <type>String</type>
-        <multiValued>false</multiValued>
+        <multiValued>true</multiValued>
         <mandatory>false</mandatory>
       </configurationParameter>
       <configurationParameter>

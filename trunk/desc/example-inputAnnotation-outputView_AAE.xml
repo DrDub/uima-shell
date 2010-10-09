@@ -37,7 +37,7 @@
       <configurationParameter>
         <name>InputAnnotation</name>
         <type>String</type>
-        <multiValued>false</multiValued>
+        <multiValued>true</multiValued>
         <mandatory>false</mandatory>
         <overrides>
           <parameter>ShellAE/InputAnnotation</parameter>
@@ -146,7 +146,9 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
       <nameValuePair>
         <name>InputAnnotation</name>
         <value>
+        	<array>
           <string>org.apache.uima.SentenceAnnotation</string>
+        	</array>
         </value>
       </nameValuePair>
       <nameValuePair>
