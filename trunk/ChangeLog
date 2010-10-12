@@ -22,6 +22,8 @@
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
 2010-10-09  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
+	* refactoring: execute -> analyse 
+	* ShellAE.java: mise en commentaire des commandes logs
 	* desc/*: Suite au refactoring de UIMA-common : paramètre InputAnnotationString -> InputAnnotationStringArray
 	
 2010-10-07  Nicolas Hernandez  <nicolas.hernandez@gmail.com>

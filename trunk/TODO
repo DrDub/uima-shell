@@ -21,6 +21,7 @@
 # Fichier TODO
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
+	* déterminer ce que doit avoir comme argument la méthode analysis
 	* gérer les in out et err stream de la méthode command de la classe Shell
 	* refactorer la gestion de la configuration du shell 
 	* un script pour faciliter la construction si en dehors d'Eclipse ?

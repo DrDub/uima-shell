@@ -128,7 +128,7 @@ public class ShellAE extends AnalysisEngine {
 	 * @return
 	 * @throws AnalysisEngineProcessException 
 	 */
-	public String execute (JCas aJCas, String inputTextToProcess, int beginFeatureValue, int endFeatureValue) throws AnalysisEngineProcessException {
+	public String analyse (JCas aJCas, String inputTextToProcess, int beginFeatureValue, int endFeatureValue) throws AnalysisEngineProcessException {
 
 		//preCmdTokensStringArray, postCmdTokensStringArray,charsetNameString, workingDirString, envVarStringArray);
 		/** -- Prepare the command **/
@@ -161,15 +161,15 @@ public class ShellAE extends AnalysisEngine {
 
 		/** Etat de l'environnement d'exécution du shell **/
 		// Retourne le nom du shell système.
-		log("Debug: nom du shell système >"+sh.toString()+"<");
+		//log("Debug: nom du shell système >"+sh.toString()+"<");
 		// Retourne le charset associé avec cette instance de shell. 
-		log("Debug: charset du shell>"+sh.getCharset().toString()+"<");
+		//log("Debug: charset du shell>"+sh.getCharset().toString()+"<");
 		// Retourne le répertoire à partir duquel les commandes du shell seront lancés. 
-		log("Debug: repertoire d'exécution du shell>"+sh.getDirectory().getAbsolutePath()+"<");
+		//log("Debug: repertoire d'exécution du shell>"+sh.getDirectory().getAbsolutePath()+"<");
 		// Retourne une map contenant les variables d'environnements utilisateurs. Cette Map est librement modifiables afin d'ajouter/supprimer des éléments.
 
 		Map<String,String> varUserEnvMap = sh.getUserEnv();
-		if (envVarStringArray != null) log("Debug: envVar.length"+envVarStringArray.length);	
+		//if (envVarStringArray != null) log("Debug: envVar.length"+envVarStringArray.length);	
 
 		// Indique si les variables d'environnements de l'application Java courante doivent être passé aux commandes lancées par ce shell.
 		//if (sh.isSystemEnvInherited()) {
@@ -187,14 +187,14 @@ public class ShellAE extends AnalysisEngine {
 			}
 
 		if (varUserEnvMap.isEmpty()) {
-			log("Debug: pas de variables d'environnement définies par paramètre");
+			//log("Debug: pas de variables d'environnement définies par paramètre");
 		}
 		else {
 			Iterator varUserEnvIter = varUserEnvMap.keySet().iterator();
 			while (varUserEnvIter.hasNext()) {
 				String key = (String) varUserEnvIter.next();
 				String value = (String) varUserEnvMap.get(key);
-				log("Debug: user env var "+key+"="+value);	
+				//log("Debug: user env var "+key+"="+value);	
 			}
 		}	
 
