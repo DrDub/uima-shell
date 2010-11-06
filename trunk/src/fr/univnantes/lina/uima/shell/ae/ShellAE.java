@@ -128,7 +128,7 @@ public class ShellAE extends AnalysisEngine {
 	 * @return
 	 * @throws AnalysisEngineProcessException 
 	 */
-	public String analyse (JCas aJCas, String inputTextToProcess, int beginFeatureValue, int endFeatureValue) throws AnalysisEngineProcessException {
+	public String processAnnotationFeatureStringValue (JCas aJCas, String inputTextToProcess, int beginFeatureValue, int endFeatureValue) throws AnalysisEngineProcessException {
 
 		//preCmdTokensStringArray, postCmdTokensStringArray,charsetNameString, workingDirString, envVarStringArray);
 		/** -- Prepare the command **/
