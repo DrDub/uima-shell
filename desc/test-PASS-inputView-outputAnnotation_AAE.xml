@@ -8,7 +8,7 @@
     </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
-    <name>example of inputView to outputView</name>
+    <name>example of inputView to outputAnnotation</name>
     <description/>
     <version>1.0</version>
     <vendor/>
@@ -16,7 +16,7 @@
       <configurationParameter>
         <name>InputView</name>
         <type>String</type>
-        <multiValued>false</multiValued>
+        <multiValued>true</multiValued>
         <mandatory>false</mandatory>
         <overrides>
           <parameter>ShellAE/InputView</parameter>
@@ -106,12 +106,6 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
-        <name>OutputViewTypeMime</name>
-        <value>
-          <string>text/plain</string>
-        </value>
-      </nameValuePair>
-      <nameValuePair>
         <name>PreCommandTokens</name>
         <value>
           <array>
@@ -124,13 +118,22 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
         <value>
           <array>
             <string>| perl -ne 's/(\w)([\.,?])/$1 $2/g; s/ /\n/g; print'</string>
+            <string>| sort</string>
+            <string>| uniq</string>
+            <string>| wc -l</string>
           </array>
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>OutputView</name>
+        <name>OutputAnnotation</name>
         <value>
-          <string>myNewOutputView</string>
+          <string>fr.univnantes.lina.uima.shell.types.ShellAnnotation</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>OutputFeature</name>
+        <value>
+          <string>value</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
@@ -143,7 +146,9 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
     <capabilities>
       <capability>
         <inputs/>
-        <outputs/>
+        <outputs>
+          <type allAnnotatorFeatures="true">fr.univnantes.lina.uima.shell.types.ShellAnnotation</type>
+        </outputs>
         <languagesSupported/>
       </capability>
     </capabilities>

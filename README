@@ -273,6 +273,15 @@ EXAMPLES
 	example-contextAnnotation-outputAnnotation_AAE.xml
 		do the same that example-inputAnnotation-outputAnnotation_AAE.xml
 		
+		test-ALERT-create-outputAnnotation-in-distinct-outputView-than-inputView_AAE.xml
+	test-FAIL-inputView-create-annotation-on-no-existing-outputView_AAE.xml
+	test-FAIL-inputView-inputAnnotation-outputView-outputAnnotation-tous-null_AAE.xml
+	test-PASS-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml
+test-PASS-treetagger-via-Shell_AAE.xml
+test-PASS-two-inputViews-outputAnnotation_AAE.xml
+test-PASS-two-inputViews-outputView_AAE.xml
+		
+		
 
 TRICKS
 	Récupérer le contenu d'un fichier dans le système et courcicuiter le texte 
