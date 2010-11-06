@@ -36,7 +36,7 @@ Execute any Shell command by taking any view or annotation as input and by creat
 			only some part of the view. It means that only the context 
 			annotation will be used to get the input annotations.</description>
         <type>String</type>
-        <multiValued>false</multiValued>
+        <multiValued>true</multiValued>
         <mandatory>false</mandatory>
       </configurationParameter>
       <configurationParameter>

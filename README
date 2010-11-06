@@ -241,7 +241,7 @@ EXAMPLES
 	which should be so added to your BUILD_PATH
 	
 	example-inputView-outputView_AAE.xml
-		assume the default InputView "_InitialView", only the OutputView is defined. 
+		assumes the default InputView "_InitialView", only the OutputView is defined. 
 		Use both pre/post command parameters with shell and perl command.
 		Output a word per line.
 		
@@ -254,7 +254,7 @@ EXAMPLES
 		Count the number of uniq word.
 		
 	example-inputAnnotation-outputView_AAE.xml
-		Assume the Apache WhitespaceTokenizer have run. Uppercase any content 
+		Assumes the Apache WhitespaceTokenizer have run. Uppercase any content 
 		of the coveredText of each org.apache.uima.SentenceAnnotation. And 
 		output it in a new view.
 		
@@ -264,12 +264,15 @@ EXAMPLES
 		words per sentence in the value feature. Use variables.
 	
 	example-treetagger-via-Shell_AAE.xml
-		use variables in command definition, perl and TreeTagger external command.
+		uses variables in command definition, perl and TreeTagger external command.
 		
 	example-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml
-		show how to pipe several calls to the shell AE starting from an input view, 
+		shows how to pipe several calls to the shell AE starting from an input view, 
 		creating an annotation, then working on the annotation to create a view.
 
+	example-contextAnnotation-outputAnnotation_AAE.xml
+		do the same that example-inputAnnotation-outputAnnotation_AAE.xml
+		
 
 TRICKS
 	Récupérer le contenu d'un fichier dans le système et courcicuiter le texte 
