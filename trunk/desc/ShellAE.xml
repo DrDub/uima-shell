@@ -26,7 +26,7 @@ Execute any Shell command by taking any view or annotation as input and by creat
 			which the sofaDataString is got or from which the input 
 			annotations are got.</description>
         <type>String</type>
-        <multiValued>false</multiValued>
+        <multiValued>true</multiValued>
         <mandatory>false</mandatory>
       </configurationParameter>
       <configurationParameter>

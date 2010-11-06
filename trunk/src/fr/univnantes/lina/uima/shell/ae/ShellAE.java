@@ -121,11 +121,14 @@ public class ShellAE extends AnalysisEngine {
 	}
 
 	/**
-	 * Process 
+	 * Perform a shell command
+	 *  
+	 * @param aJCas
 	 * @param inputTextToProcess
 	 * @param beginFeatureValue
 	 * @param endFeatureValue
-	 * @return
+	 * 
+	 * @return the sdtout result 
 	 * @throws AnalysisEngineProcessException 
 	 */
 	public String processAnnotationFeatureStringValue (JCas aJCas, String inputTextToProcess, int beginFeatureValue, int endFeatureValue) throws AnalysisEngineProcessException {
