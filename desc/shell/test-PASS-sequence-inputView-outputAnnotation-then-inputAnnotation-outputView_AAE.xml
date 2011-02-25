@@ -4,10 +4,10 @@
   <primitive>false</primitive>
   <delegateAnalysisEngineSpecifiers>
     <delegateAnalysisEngine key="ShellAE2">
-      <import name="ShellAE"/>
+      <import name="shell.ShellAE"/>
     </delegateAnalysisEngine>
     <delegateAnalysisEngine key="ShellAE">
-      <import name="ShellAE"/>
+      <import name="shell.ShellAE"/>
     </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
