@@ -113,12 +113,7 @@ public class ShellAE extends AnalysisEngine {
 	}
 
 
-	/**
-	 * @see JCasAnnotator_ImplBase#process(JCas)
-	 */
-	public void process(JCas aJCas) throws AnalysisEngineProcessException {
-		super.process(aJCas);
-	}
+	
 
 	/**
 	 * Perform a shell command
@@ -131,7 +126,7 @@ public class ShellAE extends AnalysisEngine {
 	 * @return the sdtout result 
 	 * @throws AnalysisEngineProcessException 
 	 */
-	public String processInputAnnotation (JCas aJCas, String inputTextToProcess, int beginFeatureValue, int endFeatureValue) throws AnalysisEngineProcessException {
+	public String processAnnotationFeatureStringValue (JCas aJCas, String inputTextToProcess, int beginFeatureValue, int endFeatureValue) throws AnalysisEngineProcessException {
 
 		//preCmdTokensStringArray, postCmdTokensStringArray,charsetNameString, workingDirString, envVarStringArray);
 		/** -- Prepare the command **/
