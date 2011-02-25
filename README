@@ -273,13 +273,22 @@ EXAMPLES
 	example-contextAnnotation-outputAnnotation_AAE.xml
 		do the same that example-inputAnnotation-outputAnnotation_AAE.xml
 		
-		test-ALERT-create-outputAnnotation-in-distinct-outputView-than-inputView_AAE.xml
-	test-FAIL-inputView-create-annotation-on-no-existing-outputView_AAE.xml
-	test-FAIL-inputView-inputAnnotation-outputView-outputAnnotation-tous-null_AAE.xml
-	test-PASS-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml
-test-PASS-treetagger-via-Shell_AAE.xml
-test-PASS-two-inputViews-outputAnnotation_AAE.xml
-test-PASS-two-inputViews-outputView_AAE.xml
+		
+	desc/test-ALERT-create-outputAnnotation-in-distinct-outputView-than-inputView_AAE.xml
+	desc/test-FAIL-inputView-create-annotation-on-no-existing-outputView_AAE.xml
+	desc/test-FAIL-inputView-inputAnnotation-outputView-outputAnnotation-tous-null_AAE.xml
+	desc/test-PASS-contextAnnotation-inputAnnotation-outputAnnotation_AAE.xml
+	desc/test-PASS-contextAnnotation-outputAnnotation_AAE.xml
+	desc/test-PASS-inputAnnotation-outputAnnotation_AAEStyleMap.xml
+	desc/test-PASS-inputAnnotation-outputAnnotation_AAE.xml
+	desc/test-PASS-inputAnnotation-outputView_AAE.xml
+	desc/test-PASS-inputView-outputAnnotation_AAE.xml
+	desc/test-PASS-inputView-outputView_AAE.xml
+	desc/test-PASS-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml
+	desc/test-PASS-treetagger-via-Shell_AAE.xml
+	desc/test-PASS-two-inputViews-outputAnnotation_AAE.xml
+	desc/test-PASS-two-inputViews-outputView_AAE.xml
+
 		
 		
 
