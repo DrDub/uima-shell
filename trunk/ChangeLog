@@ -22,8 +22,9 @@
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
 2011-02-25  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
+  * refactoring de desc/ vers desc/shell et modif de tous les AAE dépendants
   * Ajout de desc/test* : desc/test-ALERT-create-outputAnnotation-in-distinct-outputView-than-inputView_AAE.xml desc/test-PASS-inputAnnotation-outputAnnotation_AAEStyleMap.xml desc/test-FAIL-inputView-inputAnnotation-outputView-outputAnnotation-tous-null_AAE.xml desc/test-PASS-two-inputViews-outputAnnotation_AAE.xml desc/test-FAIL-inputView-create-annotation-on-no-existing-outputView_AAE.xml desc/test-PASS-two-inputViews-outputView_AAE.xml
-  * Mineur modification de ShellAE
+  * Modification de ShellAE (1 majeur notamment suite à mise à jour de uima-common)
 
 2010-10-09  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 	* refactoring: execute -> analyse 
