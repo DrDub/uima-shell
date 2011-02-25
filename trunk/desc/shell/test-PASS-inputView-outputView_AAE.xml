@@ -4,11 +4,11 @@
   <primitive>false</primitive>
   <delegateAnalysisEngineSpecifiers>
     <delegateAnalysisEngine key="ShellAE">
-      <import name="ShellAE"/>
+      <import name="shell.ShellAE"/>
     </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
-    <name>example tree-tagger-via-shell-ae</name>
+    <name>example of inputView to outputView</name>
     <description/>
     <version>1.0</version>
     <vendor/>
@@ -16,7 +16,7 @@
       <configurationParameter>
         <name>InputView</name>
         <type>String</type>
-        <multiValued>false</multiValued>
+        <multiValued>true</multiValued>
         <mandatory>false</mandatory>
         <overrides>
           <parameter>ShellAE/InputView</parameter>
@@ -103,20 +103,6 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
           <parameter>ShellAE/PostCommandTokens</parameter>
         </overrides>
       </configurationParameter>
-      <configurationParameter>
-        <name>EnvironmentVariables</name>
-        <description>Optional. Array of strings, each element of which has environment variable
-			settings in the format name=value, or null if the process 
-			should inherit the environment of the current process (leave it
-			empty for the null value). Can be used to define variables which 
-			will be used in the command lines.</description>
-        <type>String</type>
-        <multiValued>true</multiValued>
-        <mandatory>false</mandatory>
-        <overrides>
-          <parameter>ShellAE/EnvironmentVariables</parameter>
-        </overrides>
-      </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
@@ -138,28 +124,13 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
         <value>
           <array>
             <string>| perl -ne 's/(\w)([\.,?])/$1 $2/g; s/ /\n/g; print'</string>
-            <string>| ${TT_HOME}/bin/tree-tagger ${TT_HOME}/lib/french.par -token -lemma -sgml</string>
           </array>
-        </value>
-      </nameValuePair>
-      <nameValuePair>
-        <name>InputView</name>
-        <value>
-          <string>_InitialView</string>
         </value>
       </nameValuePair>
       <nameValuePair>
         <name>OutputView</name>
         <value>
-          <string>TTResult</string>
-        </value>
-      </nameValuePair>
-      <nameValuePair>
-        <name>EnvironmentVariables</name>
-        <value>
-          <array>
-            <string>TT_HOME=/home/hernandez/applications/tree-tagger/</string>
-          </array>
+          <string>myNewOutputView</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
@@ -172,10 +143,7 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
     <capabilities>
       <capability>
         <inputs/>
-        <outputs>
-          <type allAnnotatorFeatures="true">org.apache.uima.TokenAnnotation</type>
-          <type allAnnotatorFeatures="true">org.apache.uima.SentenceAnnotation</type>
-        </outputs>
+        <outputs/>
         <languagesSupported/>
       </capability>
     </capabilities>

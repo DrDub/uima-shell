@@ -7,7 +7,7 @@
       <import name="WhitespaceTokenizer"/>
     </delegateAnalysisEngine>
     <delegateAnalysisEngine key="ShellAE">
-      <import name="ShellAE"/>
+      <import name="shell.ShellAE"/>
     </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
@@ -139,7 +139,7 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
         <name>PreCommandTokens</name>
         <value>
           <array>
-            <string>${USR_BIN_DIR}/wc -m</string>
+            <string>${USR_BIN_DIR}/wc -w</string>
           </array>
         </value>
       </nameValuePair>
@@ -154,9 +154,7 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
       <nameValuePair>
         <name>InputAnnotation</name>
         <value>
-          <array>
-            <string>org.apache.uima.TokenAnnotation</string>
-          </array>
+          <array/>
         </value>
       </nameValuePair>
       <nameValuePair>
@@ -185,12 +183,6 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
           <array>
             <string>org.apache.uima.SentenceAnnotation</string>
           </array>
-        </value>
-      </nameValuePair>
-      <nameValuePair>
-        <name>InputFeature</name>
-        <value>
-          <string>coveredText</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>

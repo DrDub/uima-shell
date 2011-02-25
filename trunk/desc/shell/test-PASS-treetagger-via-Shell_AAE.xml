@@ -3,15 +3,12 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>false</primitive>
   <delegateAnalysisEngineSpecifiers>
-    <delegateAnalysisEngine key="WhitespaceTokenizer">
-      <import name="WhitespaceTokenizer"/>
-    </delegateAnalysisEngine>
     <delegateAnalysisEngine key="ShellAE">
-      <import name="ShellAE"/>
+      <import name="shell.ShellAE"/>
     </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
-    <name>example of inputAnnotation to outputAnnotation</name>
+    <name>example tree-tagger-via-shell-ae</name>
     <description/>
     <version>1.0</version>
     <vendor/>
@@ -19,7 +16,7 @@
       <configurationParameter>
         <name>InputView</name>
         <type>String</type>
-        <multiValued>true</multiValued>
+        <multiValued>false</multiValued>
         <mandatory>false</mandatory>
         <overrides>
           <parameter>ShellAE/InputView</parameter>
@@ -41,19 +38,6 @@
         <mandatory>false</mandatory>
         <overrides>
           <parameter>ShellAE/InputAnnotation</parameter>
-        </overrides>
-      </configurationParameter>
-      <configurationParameter>
-        <name>InputFeature</name>
-        <description>Optional. InputAnnotation and InputFeature must be set both. Leave them free if you want to process the sofaDataString 
-			of the view (the whole view). Otherwise the command will be processed 
-			with each InputFeature of the annotations of the specified InputAnnotation type as input. Most of the time you will use coveredText as the 
-			InputFeature value.</description>
-        <type>String</type>
-        <multiValued>false</multiValued>
-        <mandatory>false</mandatory>
-        <overrides>
-          <parameter>ShellAE/InputFeature</parameter>
         </overrides>
       </configurationParameter>
       <configurationParameter>
@@ -136,10 +120,16 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
+        <name>OutputViewTypeMime</name>
+        <value>
+          <string>text/plain</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
         <name>PreCommandTokens</name>
         <value>
           <array>
-            <string>${USR_BIN_DIR}/wc -w</string>
+            <string>cat</string>
           </array>
         </value>
       </nameValuePair>
@@ -147,48 +137,34 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
         <name>PostCommandTokens</name>
         <value>
           <array>
-            <string>| cut -d ' ' -f 1</string>
+            <string>| perl -ne 's/(\w)([\.,?])/$1 $2/g; s/ /\n/g; print'</string>
+            <string>| ${TT_HOME}/bin/tree-tagger ${TT_HOME}/lib/french.par -token -lemma -sgml</string>
           </array>
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>InputAnnotation</name>
+        <name>InputView</name>
         <value>
-          <array>
-            <string>org.apache.uima.SentenceAnnotation</string>
-          </array>
+          <string>_InitialView</string>
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>OutputAnnotation</name>
+        <name>OutputView</name>
         <value>
-          <string>fr.univnantes.lina.uima.shell.types.ShellAnnotation</string>
-        </value>
-      </nameValuePair>
-      <nameValuePair>
-        <name>OutputFeature</name>
-        <value>
-          <string>value</string>
+          <string>TTResult</string>
         </value>
       </nameValuePair>
       <nameValuePair>
         <name>EnvironmentVariables</name>
         <value>
           <array>
-            <string>USR_BIN_DIR=/usr/bin/</string>
+            <string>TT_HOME=/home/hernandez/applications/tree-tagger/</string>
           </array>
-        </value>
-      </nameValuePair>
-      <nameValuePair>
-        <name>InputFeature</name>
-        <value>
-          <string>coveredText</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
     <flowConstraints>
       <fixedFlow>
-        <node>WhitespaceTokenizer</node>
         <node>ShellAE</node>
       </fixedFlow>
     </flowConstraints>
@@ -199,7 +175,6 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
         <outputs>
           <type allAnnotatorFeatures="true">org.apache.uima.TokenAnnotation</type>
           <type allAnnotatorFeatures="true">org.apache.uima.SentenceAnnotation</type>
-          <type allAnnotatorFeatures="true">fr.univnantes.lina.uima.shell.types.ShellAnnotation</type>
         </outputs>
         <languagesSupported/>
       </capability>
