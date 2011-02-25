@@ -57,7 +57,7 @@ import java.util.Map;
 import  fr.univnantes.lina.util.JavaUtilities;
 
 /**
- * UIMA Shell wrapper sAnalysis Engine
+ * UIMA Shell wrapper Analysis Engine
  * @author Nicolas Hernandez
  */
 public class ShellAE extends AnalysisEngine {
