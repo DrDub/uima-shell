@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="desc"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="UIMA_HOME/lib/uima-core.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Program Files/apache-uima/docs/api"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="UIMA_HOME/lib/uima-cpe.jar"/>
+	<classpathentry kind="var" path="UIMA_HOME/lib/uima-document-annotation.jar"/>
+	<classpathentry kind="var" path="UIMA_HOME/lib/uima-tools.jar"/>
+	<classpathentry kind="var" path="UIMA_HOME/addons/annotator/WhitespaceTokenizer/lib/uima-an-wst.jar"/>
+	<classpathentry kind="lib" path="lib/Shell.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/uima-common"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
