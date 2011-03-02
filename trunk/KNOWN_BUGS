@@ -21,3 +21,6 @@
 # Fichier KNOWN BUGS
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
+
+2011-03-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com> 
+  *   desc/EXAMPLE-PASS-two-inputViews-outputAnnotation_AAE.xml : Attention, ici une annotation sur chaque inputView devrait être construite ce qui n'est pas le cas. A voir...
