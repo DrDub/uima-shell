@@ -21,17 +21,9 @@
 # Fichier TODO
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
-	* il faudra faire du refactoring desc/shell un de ces 4
-	* en fonction des changements de uima-common vérifier le rôle dans le rEADME et sur le site des input/output surtout InputViews ContextAnnotation et InputAnnotation
 	* dans le README réviser les noms des exemples et compléter les description (il y a eu un renommage depuis en test*)
     * ajouter les tests 		
-		test-ALERT-create-outputAnnotation-in-distinct-outputView-than-inputView_AAE.xml
-	test-FAIL-inputView-create-annotation-on-no-existing-outputView_AAE.xml
-	test-FAIL-inputView-inputAnnotation-outputView-outputAnnotation-tous-null_AAE.xml
-	test-PASS-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml
-test-PASS-treetagger-via-Shell_AAE.xml
-test-PASS-two-inputViews-outputAnnotation_AAE.xml
-test-PASS-two-inputViews-outputView_AAE.xml
+
     Attention test-PASS-two-inputViews-outputAnnotation_AAE.xml ne fonctionne pas : seulement une seule vue avec résultat; 
      
 	

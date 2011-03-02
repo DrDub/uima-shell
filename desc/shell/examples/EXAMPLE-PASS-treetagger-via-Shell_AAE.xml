@@ -13,10 +13,14 @@
     <version>1.0</version>
     <vendor/>
     <configurationParameters searchStrategy="language_fallback">
-      <configurationParameter>
+          <configurationParameter>
         <name>InputView</name>
+        <description>Optional, with an internal default value "_InitialView". The view 
+			to be processed. In other words, depending on the output type, from 
+			which the sofaDataString is got or from which the input 
+			annotations are got.</description>
         <type>String</type>
-        <multiValued>false</multiValued>
+        <multiValued>true</multiValued>
         <mandatory>false</mandatory>
         <overrides>
           <parameter>ShellAE/InputView</parameter>
@@ -117,8 +121,17 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
           <parameter>ShellAE/EnvironmentVariables</parameter>
         </overrides>
       </configurationParameter>
+
     </configurationParameters>
     <configurationParameterSettings>
+     <nameValuePair>
+        <name>InputView</name>
+        <value>
+          <array>
+            <string>_InitialView</string>
+          </array>
+        </value>
+      </nameValuePair>
       <nameValuePair>
         <name>OutputViewTypeMime</name>
         <value>
@@ -143,12 +156,6 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>InputView</name>
-        <value>
-          <string>_InitialView</string>
-        </value>
-      </nameValuePair>
-      <nameValuePair>
         <name>OutputView</name>
         <value>
           <string>TTResult</string>
@@ -158,10 +165,11 @@ And the postcmdtokens, to specify the command and/or argument tokens which follo
         <name>EnvironmentVariables</name>
         <value>
           <array>
-            <string>TT_HOME=/home/hernandez/applications/tree-tagger/</string>
+            <string>TT_HOME=/media/MyPassport/applications/tree-tagger</string>
           </array>
         </value>
       </nameValuePair>
+     
     </configurationParameterSettings>
     <flowConstraints>
       <fixedFlow>

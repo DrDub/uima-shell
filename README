@@ -237,15 +237,20 @@ PARAMETERS
 
 EXAMPLES
 	
+	They are present in the `desc/shell/examples/` directory.
 	Some use UIMA_HOME/addons/annotator/WhitespaceTokenizer/lib/uima-an-wst.jar 
-	which should be so added to your BUILD_PATH
+	which should be so added to your BUILD_PATH.
+	PASS, FAIL et ALERT sont des tags qui décrivent le comportement réalisé par le descripteurs et l'AE associé.
+		PASS correspond à une réussite d'exécution pour un desc correct. 
+		FAIL correspond à un échec attendu de par la configuration du desc.
+		ALERT correspond à une situation où le desc conduit
 	
-	example-inputView-outputView_AAE.xml
+	EXAMPLE-PASS-inputView-outputView_AAE.xml
 		assumes the default InputView "_InitialView", only the OutputView is defined. 
 		Use both pre/post command parameters with shell and perl command.
 		Output a word per line.
 		
-	example-inputView-outputAnnotation_AAE.xml
+	EXAMPLE-PASS-inputView-outputAnnotation_AAE.xml
 		InputView and OutputView are undefined. Default values are assumed. 
 		Only the OutputAnnotation/Features are defined with 
 		"fr.univnantes.lina.uima.shell.types.ShellAnnotation" type and 
@@ -253,41 +258,41 @@ EXAMPLES
 		Capabilities indicate the annotation to output.
 		Count the number of uniq word.
 		
-	example-inputAnnotation-outputView_AAE.xml
+	EXAMPLE-PASS-inputAnnotation-outputView_AAE.xml
 		Assumes the Apache WhitespaceTokenizer have run. Uppercase any content 
 		of the coveredText of each org.apache.uima.SentenceAnnotation. And 
 		output it in a new view.
 		
-	example-inputAnnotation-outputAnnotation_AAE.xml
+	EXAMPLE-PASS-inputAnnotation-outputAnnotation_AAE.xml
 		Over each coveredText of org.apache.uima.SentenceAnnotation add a 
 		fr.univnantes.lina.uima.shell.types.ShellAnnotation with the number of 
 		words per sentence in the value feature. Use variables.
 	
-	example-treetagger-via-Shell_AAE.xml
+	EXAMPLE-PASS-treetagger-via-Shell_AAE.xml
 		uses variables in command definition, perl and TreeTagger external command.
 		
-	example-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml
+	EXAMPLE-PASS-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml
 		shows how to pipe several calls to the shell AE starting from an input view, 
 		creating an annotation, then working on the annotation to create a view.
 
-	example-contextAnnotation-outputAnnotation_AAE.xml
+	EXAMPLE-PASS-contextAnnotation-outputAnnotation_AAE.xml
 		do the same that example-inputAnnotation-outputAnnotation_AAE.xml
 		
-		
-	desc/test-ALERT-create-outputAnnotation-in-distinct-outputView-than-inputView_AAE.xml
-	desc/test-FAIL-inputView-create-annotation-on-no-existing-outputView_AAE.xml
-	desc/test-FAIL-inputView-inputAnnotation-outputView-outputAnnotation-tous-null_AAE.xml
-	desc/test-PASS-contextAnnotation-inputAnnotation-outputAnnotation_AAE.xml
-	desc/test-PASS-contextAnnotation-outputAnnotation_AAE.xml
-	desc/test-PASS-inputAnnotation-outputAnnotation_AAEStyleMap.xml
-	desc/test-PASS-inputAnnotation-outputAnnotation_AAE.xml
-	desc/test-PASS-inputAnnotation-outputView_AAE.xml
-	desc/test-PASS-inputView-outputAnnotation_AAE.xml
-	desc/test-PASS-inputView-outputView_AAE.xml
-	desc/test-PASS-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml
-	desc/test-PASS-treetagger-via-Shell_AAE.xml
-	desc/test-PASS-two-inputViews-outputAnnotation_AAE.xml
-	desc/test-PASS-two-inputViews-outputView_AAE.xml
+	
+	EXAMPLE-ALERT-create-outputAnnotation-in-distinct-outputView-than-inputView_AAE.xml
+		Crée une annotation sur une outputView qui est différente de celle qui a servi à construire l'annotation. 
+		La conséquence directe est que les offsets de l'annotation risquent de ne plus correspondre si l'outputView est différente de l'inputView.
+		L'exécution se passera normalement. Néanmoins la cohérence sémantique ne sera pas respectée et la visualisation de l'annotation avec l'AnnotationViewer ou le DocumentAnalyseur produira une exception "String index out of range"
+		Pour démontrer ce cas, on utilise ici deux shellAE, le premier qui crée une seconde vue, et le second qui construit une annotation à partir d'une vue et qui l'associe avec la vue créée par le premier AE.  
+		 
+	Examples récents à commenter
+		 
+	desc/EXAMPLE-FAIL-inputView-create-annotation-on-no-existing-outputView_AAE.xml
+	desc/EXAMPLE-FAIL-inputView-inputAnnotation-outputView-outputAnnotation-tous-null_AAE.xml
+	desc/EXAMPLE-PASS-contextAnnotation-outputAnnotation_AAE.xml
+	desc/EXAMPLE-PASS-two-inputViews-outputAnnotation_AAE.xml
+		BUG : Attention, ici une annotation sur chaque inputView devrait être construite ce qui n'est pas le cas. A voir... 
+	desc/EXAMPLE-PASS-two-inputViews-outputView_AAE.xml
 
 		
 		
