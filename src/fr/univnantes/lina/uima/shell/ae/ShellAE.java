@@ -231,7 +231,7 @@ public class ShellAE extends AnalysisEngine {
 	private String buildTheCommand(String[] preCmdTokensStringArray, String dataString, String[] postCmdTokensStringArray) throws AnalysisEngineProcessException {
 		log("Creating a temporary file containing the dataString to proceed");
 		String[] dataStringArray = new String[1]; 
-		dataStringArray[0] = UIMAUtilities.createTempTextFile (getCOMPONENT_ID() + "_tmp_", ".bak", dataString);
+		dataStringArray[0] = UIMAUtilities.createAETempTextFile (getCOMPONENT_ID() + "_tmp_", ".bak", dataString);
 
 		String[] tmp = JavaUtilities.concat(preCmdTokensStringArray, dataStringArray);
 		cmdArrayStringArray = JavaUtilities.concat (tmp, postCmdTokensStringArray);
