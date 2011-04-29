@@ -21,12 +21,12 @@
 # Fichier TODO
 # 2010-10-01  Nicolas Hernandez  <nicolas.hernandez@gmail.com>
 
+    * Vérifier que suite à modification de AnalysisEngine sur comportement avec only-inputView-and-outputView-and-the-same-values
+    * on garde cette exemple et la description dans le README    Ajout de EXAMPLE-FAIL-only-inputView-and-outputView-and-the-same-values_AAE.xml et explication dans le README
+    * même exemple que EXAMPLE-FAIL-inputView-inputAnnotation-outputView-outputAnnotation-tous-null_AAE.xml ; à uniformiser
 	* dans le README réviser les noms des exemples et compléter les description (il y a eu un renommage depuis en test*)
     * ajouter les tests 		
-
-    Attention test-PASS-two-inputViews-outputAnnotation_AAE.xml ne fonctionne pas : seulement une seule vue avec résultat; 
-     
-	
+    * Attention test-PASS-two-inputViews-outputAnnotation_AAE.xml ne fonctionne pas : seulement une seule vue avec résultat; 
 	* déterminer ce que doit avoir comme argument la méthode analysis
 	* gérer les in out et err stream de la méthode command de la classe Shell
 	* refactorer la gestion de la configuration du shell 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
-    <jar path="uima-shell/target/uima-shell-v110226.jar"/>
+    <jar path="uima-shell/target/uima-shell-v110302.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/uima-shell/packaging-uima-shell.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
@@ -21,8 +21,8 @@
         <file path="/uima-shell/README"/>
         <file path="/uima-shell/.classpath"/>
         <javaElement handleIdentifier="=uima-shell/src"/>
-        <file path="/uima-shell/packaging-uima-shell.jardesc"/>
         <file path="/uima-shell/ChangeLog"/>
+        <file path="/uima-shell/packaging-uima-shell.jardesc"/>
         <file path="/uima-shell/LICENSE"/>
         <file path="/uima-shell/TODO"/>
     </selectedElements>

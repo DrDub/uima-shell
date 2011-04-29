@@ -286,7 +286,9 @@ EXAMPLES
 		Pour démontrer ce cas, on utilise ici deux shellAE, le premier qui crée une seconde vue, et le second qui construit une annotation à partir d'une vue et qui l'associe avec la vue créée par le premier AE.  
 		 
 	Examples récents à commenter
-		 
+	EXAMPLE-FAIL-only-inputView-and-outputView-and-the-same-values_AAE.xml
+		the parameter values can be empty (so it will be _InitialView) 
+		
 	desc/EXAMPLE-FAIL-inputView-create-annotation-on-no-existing-outputView_AAE.xml
 	desc/EXAMPLE-FAIL-inputView-inputAnnotation-outputView-outputAnnotation-tous-null_AAE.xml
 	desc/EXAMPLE-PASS-contextAnnotation-outputAnnotation_AAE.xml
