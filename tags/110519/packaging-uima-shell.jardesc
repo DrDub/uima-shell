@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="uima-shell/target/uima-shell-v110302.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/uima-shell/packaging-uima-shell.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <folder path="/uima-shell/metadata"/>
+        <folder path="/uima-shell/data"/>
+        <javaElement handleIdentifier="=uima-shell/desc"/>
+        <file path="/uima-shell/.project"/>
+        <file path="/uima-shell/KNOWN_BUGS"/>
+        <folder path="/uima-shell/resources"/>
+        <folder path="/uima-shell/conf"/>
+        <file path="/uima-shell/README"/>
+        <file path="/uima-shell/.classpath"/>
+        <javaElement handleIdentifier="=uima-shell/src"/>
+        <file path="/uima-shell/ChangeLog"/>
+        <file path="/uima-shell/packaging-uima-shell.jardesc"/>
+        <file path="/uima-shell/LICENSE"/>
+        <file path="/uima-shell/TODO"/>
+    </selectedElements>
+</jardesc>
