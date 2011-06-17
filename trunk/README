@@ -24,18 +24,45 @@
 
 OVERVIEW
 
-	Ce projet a pour objet l'implémentation d'un Analysis Engine permettant 
-	l'exécution d'une commande shell sur un élément du CAS (Common Analysis 
-	Structure) et l'enrichissement du CAS avec le résultat du traitement. 
-	L'entrée de la commande peut être soit le SofaDataString d'une vue 
-	spécifiée, soit la valeur d'une feature String d'une annotation elles aussi 
-	spécifiés (e.g. le coveredText). Il est possible de restreindre le 
-	traitement à des annotations apparaissant dans certains contextes marqués 
-	par un autre type d'annotation à spécifier. La sortie peut être produite 
-	soit sous la forme d'un SofaDataString d'une nouvelle vue créée pour 
-	l'occasion ou bien comme valeur d'une feature de type String d'une 
-	annotation spécifiée elle aussi	créée pour l'occasion.
+	This UIMA _Analysis Engine_ (AE) allows you to *run Shell command over a 
+	_Common Analysis Structure_ (CAS) element ( _view_ or _annotation_ ) and 
+	to store the result either as a new view or a new annotation*.
+
+	It mainly aims at running within a UIMA aggregate processing chain some 
+	external tools available via command line. These tools should perform their 
+	processing by taking the input as a file name parameter or a standard input 
+	( _stdin_ ) and produce the result via the standard output ( _stdout_ ).
+
+	The input must be either the _SofaDataString_ of a specified view, or the 
+	value of an annotation _String feature_ which should also be specified 
+	(e.g. _org.apache.uima.TokenAnnotation_ and _coveredText_ ). 
+	It is possible to only process some annotations belonging themselves to 
+	some parts of the sofa specified also as an annotation.
+	The processing result can be saved as either the SofaDataString of a newly 
+	created view or the string feature value of a newly created annotation.
 	
+
+If you use this project to support academic research, then please cite the following paper as appropriate. Thanks also to let me know by email (_nicolas.hernandez   @gmail.com)_.
+
+{{{
+%% hal-00481459, version 1
+%% http://hal.archives-ouvertes.fr/hal-00481459/en/
+@inproceedings{HERNANDEZ:2010:HAL-00481459:1,
+    HAL_ID = {hal-00481459},
+    URL = {http://hal.archives-ouvertes.fr/hal-00481459/en/},
+    title = { {B}uilding a {F}rench-speaking community around {UIMA}, gathering research, education and industrial partners, mainly in {N}atural {L}anguage {P}rocessing and {S}peech {R}ecognizing domains},
+    author = {{H}ernandez, {N}icolas and {P}oulard, {F}abien and {V}ernier, {M}atthieu and {R}ocheteau, {J}{\'e}r{\^o}me},
+   
+    affiliation = {{L}aboratoire d'{I}nformatique de {N}antes {A}tlantique - {LINA} - {CNRS} : {UMR}6241 - {U}niversit{\'e} de {N}antes - {E}cole des {M}ines de {N}antes },
+    booktitle = {{W}orkshop {A}bstracts {LREC} 2010 {W}orkshop '{N}ew {C}hallenges for {NLP} {F}rameworks' },
+    pages = {p64 },
+    address = {{L}a {V}alleta {M}alte },
+    day = {22},
+    month = {05},
+    year = {2010},
+    URL = {http://hal.archives-ouvertes.fr/hal-00481459/PDF/nlpf_lrec10.pdf},
+}
+}}}
 	
 FEATURES
 
@@ -78,7 +105,6 @@ DESCRIPTION
     are used to specify the pre/post elements of the command to run. The text 
     file is seen as the central point of the command line to execute. Each 
     command and/or argument can be seen as a token in order to make easier the reading. 
-
     
     Afin de réaliser tout traitement. 
     L'INPUT_VIEW doit déjà exister ; par défaut elle est initialisée à 
@@ -100,209 +126,26 @@ DESCRIPTION
     
     The PreCommandTokens and PostCommandTokens allow any Shell instructions  
     such as pipe command, redirection, variables...
-    
-
-CONFIGURATION INSTRUCTIONS
-
-    * Pour éviter des "class not found" ne pas oublier de faire un jcasgen 
-    quand on construit un aggregate 
 
 
-INSTALLATION INSTRUCTIONS
-	
-	Pour l'utiliser par exemple au sein d'un projet Eclipse Java que vous aurez créé
-	* ajouter au BUILD_PATH, les bibliothèques de UIMA présentes dans UIMA_HOME/lib
-			uima-core.jar uima-tools.jar uima-cpe.jar uima-document-annotation.jar 
-	* ajouter au BUILD_PATH, la bibliothèque Shell.jar F Martini (alias adiGuba) 
-	distribuée sous licence CeCILL-C et qui permet de simplifier l'exécution de 
-	programme et de ligne de commande depuis Java. 
-	http://adiguba.developpez.com/download/cecill-c/?file=libs/Shell.jar
- 	* ajouter au BUILD_PATH, la bibliothèque uima-shell.jar délivrée par ce projet
- 	ainsi que la lib uima-util.jar référencée sur le site
- 	* Some examples use UIMA_HOME/addons/annotator/WhitespaceTokenizer/lib/uima-an-wst.jar 
-	which should be so added to your BUILD_PATH
- 	* créer un descripteur que vous déclarez en aggregate (onglet Overview)
+FILES
 
-
-OPERATING INSTRUCTIONS
-    
- 	* Editez le descripteur, 
- 	* Sous l'onglet "Aggregate" ajouter "by name" le descripteur ShellAE (ainsi 
- 	que les descripteurs des AE que vous souhaitez exécuter pour lesquels vous 
- 	aurez ajouté les jars correspondants dans le build path)
- 	* Sous l'onglet "Parameters" section "Delegate Component Parameters" pour 
- 	le composant ShellAE faites des "create NON SHARED overide" des parameters qui vous intéressent 
- 	A minima sélectionnez les éléments du CAS que vous souhaitez traiter 
- 	(l'InputView, le ContextAnnotation, l'InputAnnotation/Feature) 
- 	puis le type d'éléments du CAS que vous voulez produire (l'OutputView, 
- 	l'OutputAnnotation/Feature) et enfin les paramètres de la commande  
- 	PreCommandTokens et PostCommandTokens. 
- 	* Sous l'onglet "Parameter Settings", spécifier ces valeurs 
- 	* Sous l'onglet "Capabilities" spécifier les types à afficher 	
-		
-PARAMETERS		
-		
-		RunId
-			Optional, used to distinguish several runs with the same command 
-			when the output type is an annotation with the runId feature. 
-			
-		InputView
-			Optional, with an internal default value "_InitialView". The view 
-			to be processed. In other words, depending on the output type, from 
-			which the sofaDataString is got or from which the input 
-			annotations are got.
-			
-		ContextAnnotation
-			Optional, with an internal default value "uima.tcas.DocumentAnnotation". 
-			Used only when an InputAnnotation type is defined. Allow to process 
-			only some part of the view. It means that only the context 
-			annotation will be used to get the input annotations.
-			
-		InputAnnotation
-		InputFeature
-			Optional. InputAnnotation and InputFeature must be set both. Leave 
-			them free if you want to process the sofaDataString	of the view 
-			(the whole view). Otherwise the command will be processed with each
-			InputFeature of the annotations of the specified InputAnnotation 
-			type as input. Most of the time you will use coveredText as the 
-			InputFeature value.
-			
-		OutputView
-			Optional, with an internal default value set to the InputView 
-			definition (if InputView is not defined then OutputView will also be 
-			"_InitialView" by default). If OutputAnnotation is defined then the 
-			program will get the OutputView to add annotations in it. If 
-			OutputAnnotation is not defined then the program will create the view
-			OutputView and set the command result as its dataSofaString.
-		
-		OutputViewTypeMime 
-			Optional, with an internal default value set to "text/plain". 
-			In case of the creation of a new view, set here the type mime of 
-			the expected command result. Some examples below: text/csv, 
-			text/html, text/plain, text/xml...
-		
-		OutputAnnotation	
-		OutputFeature
-			Optional. Must be set both. In future, will be changed by a single 
-			parameter Feature Path.
-			Correspond to the annotation type to create and its String feature 
-			name to set with the command result. If it is not defined a view 
-			will be created. Cannot work with a not existing view in the CAS. 
-			Any Annotation type name et feature name can be used. In order to make 
-			quickly operable the current component, the component comes with
-			a type system which defines such type 
-			Annotation Type Name: fr.univnantes.lina.uima.shell.types.ShellAnnotation
-			Feature Name: value
-		
-		EnvironmentVariables
-			Optional. Array of strings, each element of which has environment variable
-			settings in the format name=value, or null if the process 
-			should inherit the environment of the current process (leave it
-			empty for the null value). Can be used to define variables which 
-			will be used in the command lines.
-			
-        WorkingDirectory
-        	Optional. The working directory of the process, or null if the process 
-        	should inherit the working directory of the current process. 
-        	Leave it empty for the null value.
-        	
-        CharsetName
-    		Optional. Encoding to use for reading the process inputStream
-    		
-    	PreCommandTokens
-    		Mandatory and multiValued. The specified CAS element to analyze will 
-    		be turn into a file argument and to consider it via its file name 
-    		reference as the central point of the command line to execute. Each 
-    		command and/or argument can be seen as a token in order to make 
-    		easier the reading. 
-    		The PreCommandTokens parameter is used to specify the command and/or
-    		argument tokens which PRECEDE the file argument.
-    		If the command to process takes its input as a pipe then set the 
-    		PreCommandTokens with a "cat" value and start the PostCommandTokens 
-    		with "| " followed by the command. 
-    		If the command to process takes its input as an argument at a 
-    		specific position then set the PreCommandTokens with the command and
-    		the first arguments and set the PostCommandTokens with the last arguments. 
-    		   		
-    		
-        PostCommandTokens
-        	Optional and and multiValued. The specified CAS element to analyze will 
-    		be turn into a file argument and to consider it via its file name 
-    		reference as the central point of the command line to execute. Each 
-    		command and/or argument can be seen as a token in order to make 
-    		easier the reading. 
-			And the PostCommandTokens parameter is used to specify the command 
-			and/or argument tokens which FOLLOW the file argument.
-
-
-EXAMPLES
-	
-	They are present in the `desc/shell/examples/` directory.
-	Some use UIMA_HOME/addons/annotator/WhitespaceTokenizer/lib/uima-an-wst.jar 
-	which should be so added to your BUILD_PATH.
-	PASS, FAIL et ALERT sont des tags qui décrivent le comportement réalisé par le descripteurs et l'AE associé.
-		PASS correspond à une réussite d'exécution pour un desc correct. 
-		FAIL correspond à un échec attendu de par la configuration du desc.
-		ALERT correspond à une situation où le desc conduit
-	
-	EXAMPLE-PASS-inputView-outputView_AAE.xml
-		assumes the default InputView "_InitialView", only the OutputView is defined. 
-		Use both pre/post command parameters with shell and perl command.
-		Output a word per line.
-		
-	EXAMPLE-PASS-inputView-outputAnnotation_AAE.xml
-		InputView and OutputView are undefined. Default values are assumed. 
-		Only the OutputAnnotation/Features are defined with 
-		"fr.univnantes.lina.uima.shell.types.ShellAnnotation" type and 
-		"value" feature name.
-		Capabilities indicate the annotation to output.
-		Count the number of uniq word.
-		
-	EXAMPLE-PASS-inputAnnotation-outputView_AAE.xml
-		Assumes the Apache WhitespaceTokenizer have run. Uppercase any content 
-		of the coveredText of each org.apache.uima.SentenceAnnotation. And 
-		output it in a new view.
-		
-	EXAMPLE-PASS-inputAnnotation-outputAnnotation_AAE.xml
-		Over each coveredText of org.apache.uima.SentenceAnnotation add a 
-		fr.univnantes.lina.uima.shell.types.ShellAnnotation with the number of 
-		words per sentence in the value feature. Use variables.
-	
-	EXAMPLE-PASS-treetagger-via-Shell_AAE.xml
-		uses variables in command definition, perl and TreeTagger external command.
-		
-	EXAMPLE-PASS-sequence-inputView-outputAnnotation-then-inputAnnotation-outputView_AAE.xml
-		shows how to pipe several calls to the shell AE starting from an input view, 
-		creating an annotation, then working on the annotation to create a view.
-
-	EXAMPLE-PASS-contextAnnotation-outputAnnotation_AAE.xml
-		do the same that example-inputAnnotation-outputAnnotation_AAE.xml
-		
-	
-	EXAMPLE-ALERT-create-outputAnnotation-in-distinct-outputView-than-inputView_AAE.xml
-		Crée une annotation sur une outputView qui est différente de celle qui a servi à construire l'annotation. 
-		La conséquence directe est que les offsets de l'annotation risquent de ne plus correspondre si l'outputView est différente de l'inputView.
-		L'exécution se passera normalement. Néanmoins la cohérence sémantique ne sera pas respectée et la visualisation de l'annotation avec l'AnnotationViewer ou le DocumentAnalyseur produira une exception "String index out of range"
-		Pour démontrer ce cas, on utilise ici deux shellAE, le premier qui crée une seconde vue, et le second qui construit une annotation à partir d'une vue et qui l'associe avec la vue créée par le premier AE.  
-		 
-	Examples récents à commenter
-	EXAMPLE-FAIL-only-inputView-and-outputView-and-the-same-values_AAE.xml
-		the parameter values can be empty (so it will be _InitialView) 
-		
-	desc/EXAMPLE-FAIL-inputView-create-annotation-on-no-existing-outputView_AAE.xml
-	desc/EXAMPLE-FAIL-inputView-inputAnnotation-outputView-outputAnnotation-tous-null_AAE.xml
-	desc/EXAMPLE-PASS-contextAnnotation-outputAnnotation_AAE.xml
-	desc/EXAMPLE-PASS-two-inputViews-outputAnnotation_AAE.xml
-		BUG : Attention, ici une annotation sur chaque inputView devrait être construite ce qui n'est pas le cas. A voir... 
-	desc/EXAMPLE-PASS-two-inputViews-outputView_AAE.xml
+	ChangeLog	lists all the modifications which have been performed on the project  
+	INSTALL 	(should) contain all the instructions for installing and running the product 
+				(may have some examples)
+	LICENSE		describes  the right how to use the product 
+	NOTICE 		contains the acknowledgment and declares if required the licenses of 
+				the third-part dependencies
+	README		this current file 
+	TODO 		lists the future expected evolutions of the project 
 
 		
-		
-
-TRICKS
-	Récupérer le contenu d'un fichier dans le système et courcicuiter le texte 
-	contenu l'InputView 
-	preCmd 	touch
-	postCmd ; cat /etc/services
-
 CONTACT
+
+	If you wish participate to the development of the project 
+	or if you find some bugs, please tell the discussion group.
+
+	Consult http://code.google.com/p/uima-shell/ for more information.
+
+	Thanks for using this code.		
+		
