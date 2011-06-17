@@ -22,7 +22,7 @@ package fr.univnantes.lina.uima.shell.ae;
 
 import fr.univnantes.lina.uima.shell.types.ShellAnnotation;
 import fr.univnantes.lina.uima.util.AnalysisEngine;
-import fr.univnantes.lina.uima.util.UIMAUtilities;
+import fr.univnantes.lina.uima.util.UIMAUtils;
 //
 
 import org.apache.uima.UimaContext;
@@ -143,6 +143,8 @@ public class ShellAE extends AnalysisEngine {
 	}
 	
 	
+	
+	
 	/**
 	 * Crée un processus représentant la commande du shell et l'associe à une instance de ProcessConsumer
 	 * @param cmdString
@@ -231,7 +233,7 @@ public class ShellAE extends AnalysisEngine {
 	private String buildTheCommand(String[] preCmdTokensStringArray, String dataString, String[] postCmdTokensStringArray) throws AnalysisEngineProcessException {
 		log("Creating a temporary file containing the dataString to proceed");
 		String[] dataStringArray = new String[1]; 
-		dataStringArray[0] = UIMAUtilities.createAETempTextFile (getCOMPONENT_ID() + "_tmp_", ".bak", dataString);
+		dataStringArray[0] = UIMAUtils.createAETempTextFile (getCOMPONENT_ID() + "_tmp_", ".bak", dataString);
 
 		String[] tmp = JavaUtilities.concat(preCmdTokensStringArray, dataStringArray);
 		cmdArrayStringArray = JavaUtilities.concat (tmp, postCmdTokensStringArray);
