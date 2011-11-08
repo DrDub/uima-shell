@@ -20,9 +20,10 @@
 package fr.univnantes.lina.uima.shell.ae;
 
 
+import fr.univnantes.lina.java.util.JavaUtilities;
+import fr.univnantes.lina.uima.common.CommonAE;
+import fr.univnantes.lina.uima.common.UIMAUtils;
 import fr.univnantes.lina.uima.shell.types.ShellAnnotation;
-import fr.univnantes.lina.uima.util.AnalysisEngine;
-import fr.univnantes.lina.uima.util.UIMAUtils;
 //
 
 import org.apache.uima.UimaContext;
@@ -54,13 +55,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 
-import  fr.univnantes.lina.util.JavaUtilities;
 
 /**
  * UIMA Shell wrapper Analysis Engine
  * @author Nicolas Hernandez
  */
-public class ShellAE extends AnalysisEngine {
+public class ShellAE extends CommonAE {
 
 	/** Common component constants
 	 * To define when you create a new component 
