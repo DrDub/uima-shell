@@ -1,0 +1,1 @@
+Go to the [current README version](http://code.google.com/p/uima-shell/source/browse/trunk/README)

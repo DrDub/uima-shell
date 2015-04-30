@@ -1,0 +1,1 @@
+Click here to consult the [the current version of the INSTALL file](https://code.google.com/p/uima-shell/source/browse/trunk/INSTALL)
